@@ -137,24 +137,48 @@ inline_dummy/fast:
 .PHONY : inline_dummy/fast
 
 #=============================================================================
-# Target rules for targets named fraction
+# Target rules for targets named calculator
 
 # Build rule for target.
-fraction: cmake_check_build_system
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 fraction
-.PHONY : fraction
+calculator: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 calculator
+.PHONY : calculator
 
 # fast build rule for target.
-fraction/fast:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/fraction.dir/build.make CMakeFiles/fraction.dir/build
-.PHONY : fraction/fast
+calculator/fast:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/calculator.dir/build.make CMakeFiles/calculator.dir/build
+.PHONY : calculator/fast
+
+lib/calculator/arlogix_calculator.o: lib/calculator/arlogix_calculator.cpp.o
+.PHONY : lib/calculator/arlogix_calculator.o
+
+# target to build an object file
+lib/calculator/arlogix_calculator.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/calculator.dir/build.make CMakeFiles/calculator.dir/lib/calculator/arlogix_calculator.cpp.o
+.PHONY : lib/calculator/arlogix_calculator.cpp.o
+
+lib/calculator/arlogix_calculator.i: lib/calculator/arlogix_calculator.cpp.i
+.PHONY : lib/calculator/arlogix_calculator.i
+
+# target to preprocess a source file
+lib/calculator/arlogix_calculator.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/calculator.dir/build.make CMakeFiles/calculator.dir/lib/calculator/arlogix_calculator.cpp.i
+.PHONY : lib/calculator/arlogix_calculator.cpp.i
+
+lib/calculator/arlogix_calculator.s: lib/calculator/arlogix_calculator.cpp.s
+.PHONY : lib/calculator/arlogix_calculator.s
+
+# target to generate assembly for a file
+lib/calculator/arlogix_calculator.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/calculator.dir/build.make CMakeFiles/calculator.dir/lib/calculator/arlogix_calculator.cpp.s
+.PHONY : lib/calculator/arlogix_calculator.cpp.s
 
 lib/fraction.o: lib/fraction.cpp.o
 .PHONY : lib/fraction.o
 
 # target to build an object file
 lib/fraction.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/fraction.dir/build.make CMakeFiles/fraction.dir/lib/fraction.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/calculator.dir/build.make CMakeFiles/calculator.dir/lib/fraction.cpp.o
 .PHONY : lib/fraction.cpp.o
 
 lib/fraction.i: lib/fraction.cpp.i
@@ -162,7 +186,7 @@ lib/fraction.i: lib/fraction.cpp.i
 
 # target to preprocess a source file
 lib/fraction.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/fraction.dir/build.make CMakeFiles/fraction.dir/lib/fraction.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/calculator.dir/build.make CMakeFiles/calculator.dir/lib/fraction.cpp.i
 .PHONY : lib/fraction.cpp.i
 
 lib/fraction.s: lib/fraction.cpp.s
@@ -170,7 +194,7 @@ lib/fraction.s: lib/fraction.cpp.s
 
 # target to generate assembly for a file
 lib/fraction.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/fraction.dir/build.make CMakeFiles/fraction.dir/lib/fraction.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/calculator.dir/build.make CMakeFiles/calculator.dir/lib/fraction.cpp.s
 .PHONY : lib/fraction.cpp.s
 
 main.o: main.cpp.o
@@ -178,7 +202,7 @@ main.o: main.cpp.o
 
 # target to build an object file
 main.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/fraction.dir/build.make CMakeFiles/fraction.dir/main.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/calculator.dir/build.make CMakeFiles/calculator.dir/main.cpp.o
 .PHONY : main.cpp.o
 
 main.i: main.cpp.i
@@ -186,7 +210,7 @@ main.i: main.cpp.i
 
 # target to preprocess a source file
 main.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/fraction.dir/build.make CMakeFiles/fraction.dir/main.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/calculator.dir/build.make CMakeFiles/calculator.dir/main.cpp.i
 .PHONY : main.cpp.i
 
 main.s: main.cpp.s
@@ -194,7 +218,7 @@ main.s: main.cpp.s
 
 # target to generate assembly for a file
 main.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/fraction.dir/build.make CMakeFiles/fraction.dir/main.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/calculator.dir/build.make CMakeFiles/calculator.dir/main.cpp.s
 .PHONY : main.cpp.s
 
 # Help Target
@@ -206,8 +230,11 @@ help:
 	@echo "... codegen"
 	@echo "... edit_cache"
 	@echo "... rebuild_cache"
-	@echo "... fraction"
+	@echo "... calculator"
 	@echo "... inline_dummy"
+	@echo "... lib/calculator/arlogix_calculator.o"
+	@echo "... lib/calculator/arlogix_calculator.i"
+	@echo "... lib/calculator/arlogix_calculator.s"
 	@echo "... lib/fraction.o"
 	@echo "... lib/fraction.i"
 	@echo "... lib/fraction.s"

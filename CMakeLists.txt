@@ -1,5 +1,6 @@
 cmake_minimum_required(VERSION 3.15...4.0)
 set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
+set(CMAKE_CXX_STANDARD 17)
 project(
   improved-fraction
   VERSION 0.5
@@ -15,8 +16,12 @@ if(INL_FILES)
   )
 endif()
 
-add_executable(fraction main.cpp lib/fraction.cpp lib/fraction.hpp)
-target_include_directories(fraction PRIVATE lib)
+add_executable(
+  calculator
+  main.cpp lib/fraction.cpp lib/fraction.hpp
+  lib/calculator/arlogix_calculator.cpp lib/calculator/arlogix_calculator.hpp)
+target_link_libraries(calculator PRIVATE inline_dummy)
+target_include_directories(calculator PRIVATE lib)
 # include(FetchContent)
 #
 # add_library(lib lib/fraction.cpp lib/fraction.hpp) add_executable(fraction

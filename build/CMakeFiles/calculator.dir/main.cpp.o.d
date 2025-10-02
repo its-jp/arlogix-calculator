@@ -1,4 +1,4 @@
-CMakeFiles/fraction.dir/main.cpp.o: \
+CMakeFiles/calculator.dir/main.cpp.o: \
   /Users/u23140/gh-projects/arlogix-calculator/main.cpp \
   /Users/u23140/gh-projects/arlogix-calculator/lib/fraction.hpp \
   /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/c++/v1/iostream \

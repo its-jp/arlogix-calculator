@@ -1,5 +1,5 @@
-CMakeFiles/fraction.dir/main.cpp.o: \
-  /Users/u23140/gh-projects/arlogix-calculator/main.cpp \
+CMakeFiles/calculator.dir/lib/fraction.cpp.o: \
+  /Users/u23140/gh-projects/arlogix-calculator/lib/fraction.cpp \
   /Users/u23140/gh-projects/arlogix-calculator/lib/fraction.hpp \
   /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/c++/v1/iostream \
   /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/c++/v1/__assert \
@@ -956,13 +956,4 @@ CMakeFiles/fraction.dir/main.cpp.o: \
   /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/c++/v1/__format/formatter_string.h \
   /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/c++/v1/__format/formatter_tuple.h \
   /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/c++/v1/print \
-  /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/unistd.h \
-  /Users/u23140/gh-projects/arlogix-calculator/lib/linked_list.hpp \
-  /Users/u23140/gh-projects/arlogix-calculator/lib/node.hpp \
-  /Users/u23140/gh-projects/arlogix-calculator/lib/node.inl \
-  /Users/u23140/gh-projects/arlogix-calculator/lib/linked_list.inl \
-  /Users/u23140/gh-projects/arlogix-calculator/lib/queue.hpp \
-  /Users/u23140/gh-projects/arlogix-calculator/lib/queue.inl \
-  /Users/u23140/gh-projects/arlogix-calculator/lib/stack.hpp \
-  /Users/u23140/gh-projects/arlogix-calculator/lib/stack.inl \
-  /Users/u23140/gh-projects/arlogix-calculator/lib/calculator/arlogix_calculator.hpp
+  /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/unistd.h

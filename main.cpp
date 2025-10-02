@@ -2,13 +2,13 @@
 #include "lib/linked_list.hpp"
 #include "lib/queue.hpp"
 #include "lib/stack.hpp"
+#include "lib/calculator/arlogix_calculator.hpp"
 #include <iostream>
 int main(){
+  ArlogixCalculator calc;
+  std::string expression = "3 + 4 / 5";
 
-  Fraction f1 = Fraction(9, 5);
-  Fraction f2 = Fraction(4, 8);
-  Fraction f3 = Fraction(8, 8);
-  Fraction f4 = Fraction(-8, 8);
+  std::cout << "Expression: " << expression << std::endl;
+  std::cout << "Result: " << calc.evaluate(expression) << std::endl;
   return 0;
-
 }

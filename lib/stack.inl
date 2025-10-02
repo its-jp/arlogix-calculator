@@ -14,6 +14,7 @@ T Stack<T>::pop() {
   if(!node) throw std::runtime_error("Stack Underflow");
   T data = node->data;
   delete node;
+  return data;
 }
 
 template <typename T>

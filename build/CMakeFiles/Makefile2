@@ -63,11 +63,11 @@ CMAKE_BINARY_DIR = /Users/u23140/gh-projects/arlogix-calculator/build
 # Directory level rules for the build root directory
 
 # The main recursive "all" target.
-all: CMakeFiles/fraction.dir/all
+all: CMakeFiles/calculator.dir/all
 .PHONY : all
 
 # The main recursive "codegen" target.
-codegen: CMakeFiles/fraction.dir/codegen
+codegen: CMakeFiles/calculator.dir/codegen
 .PHONY : codegen
 
 # The main recursive "preinstall" target.
@@ -76,7 +76,7 @@ preinstall:
 
 # The main recursive "clean" target.
 clean: CMakeFiles/inline_dummy.dir/clean
-clean: CMakeFiles/fraction.dir/clean
+clean: CMakeFiles/calculator.dir/clean
 .PHONY : clean
 
 #=============================================================================
@@ -112,36 +112,36 @@ CMakeFiles/inline_dummy.dir/clean:
 .PHONY : CMakeFiles/inline_dummy.dir/clean
 
 #=============================================================================
-# Target rules for target CMakeFiles/fraction.dir
+# Target rules for target CMakeFiles/calculator.dir
 
 # All Build rule for target.
-CMakeFiles/fraction.dir/all:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/fraction.dir/build.make CMakeFiles/fraction.dir/depend
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/fraction.dir/build.make CMakeFiles/fraction.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=/Users/u23140/gh-projects/arlogix-calculator/build/CMakeFiles --progress-num=1,2,3 "Built target fraction"
-.PHONY : CMakeFiles/fraction.dir/all
+CMakeFiles/calculator.dir/all: CMakeFiles/inline_dummy.dir/all
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/calculator.dir/build.make CMakeFiles/calculator.dir/depend
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/calculator.dir/build.make CMakeFiles/calculator.dir/build
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=/Users/u23140/gh-projects/arlogix-calculator/build/CMakeFiles --progress-num=1,2,3,4 "Built target calculator"
+.PHONY : CMakeFiles/calculator.dir/all
 
 # Build rule for subdir invocation for target.
-CMakeFiles/fraction.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /Users/u23140/gh-projects/arlogix-calculator/build/CMakeFiles 3
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 CMakeFiles/fraction.dir/all
+CMakeFiles/calculator.dir/rule: cmake_check_build_system
+	$(CMAKE_COMMAND) -E cmake_progress_start /Users/u23140/gh-projects/arlogix-calculator/build/CMakeFiles 4
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 CMakeFiles/calculator.dir/all
 	$(CMAKE_COMMAND) -E cmake_progress_start /Users/u23140/gh-projects/arlogix-calculator/build/CMakeFiles 0
-.PHONY : CMakeFiles/fraction.dir/rule
+.PHONY : CMakeFiles/calculator.dir/rule
 
 # Convenience name for target.
-fraction: CMakeFiles/fraction.dir/rule
-.PHONY : fraction
+calculator: CMakeFiles/calculator.dir/rule
+.PHONY : calculator
 
 # codegen rule for target.
-CMakeFiles/fraction.dir/codegen:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/fraction.dir/build.make CMakeFiles/fraction.dir/codegen
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=/Users/u23140/gh-projects/arlogix-calculator/build/CMakeFiles --progress-num=1,2,3 "Finished codegen for target fraction"
-.PHONY : CMakeFiles/fraction.dir/codegen
+CMakeFiles/calculator.dir/codegen:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/calculator.dir/build.make CMakeFiles/calculator.dir/codegen
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=/Users/u23140/gh-projects/arlogix-calculator/build/CMakeFiles --progress-num=1,2,3,4 "Finished codegen for target calculator"
+.PHONY : CMakeFiles/calculator.dir/codegen
 
 # clean rule for target.
-CMakeFiles/fraction.dir/clean:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/fraction.dir/build.make CMakeFiles/fraction.dir/clean
-.PHONY : CMakeFiles/fraction.dir/clean
+CMakeFiles/calculator.dir/clean:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/calculator.dir/build.make CMakeFiles/calculator.dir/clean
+.PHONY : CMakeFiles/calculator.dir/clean
 
 #=============================================================================
 # Special targets to cleanup operation of make.
