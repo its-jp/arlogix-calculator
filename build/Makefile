@@ -48,19 +48,19 @@ cmake_force:
 SHELL = /bin/sh
 
 # The CMake executable.
-CMAKE_COMMAND = /usr/bin/cmake
+CMAKE_COMMAND = /Users/u23140/homebrew/bin/cmake
 
 # The command to remove a file.
-RM = /usr/bin/cmake -E rm -f
+RM = /Users/u23140/homebrew/bin/cmake -E rm -f
 
 # Escaping for special characters.
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = /home/vlerm/gh-repos/improved-fraction
+CMAKE_SOURCE_DIR = /Users/u23140/gh-projects/arlogix-calculator
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = /home/vlerm/gh-repos/improved-fraction/build
+CMAKE_BINARY_DIR = /Users/u23140/gh-projects/arlogix-calculator/build
 
 #=============================================================================
 # Targets provided globally by CMake.
@@ -68,7 +68,7 @@ CMAKE_BINARY_DIR = /home/vlerm/gh-repos/improved-fraction/build
 # Special rule for the target edit_cache
 edit_cache:
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --cyan "Running CMake cache editor..."
-	/usr/bin/ccmake -S$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR)
+	/Users/u23140/homebrew/bin/ccmake -S$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR)
 .PHONY : edit_cache
 
 # Special rule for the target edit_cache
@@ -78,7 +78,7 @@ edit_cache/fast: edit_cache
 # Special rule for the target rebuild_cache
 rebuild_cache:
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --cyan "Running CMake to regenerate build system..."
-	/usr/bin/cmake --regenerate-during-build -S$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR)
+	/Users/u23140/homebrew/bin/cmake --regenerate-during-build -S$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR)
 .PHONY : rebuild_cache
 
 # Special rule for the target rebuild_cache
@@ -87,16 +87,16 @@ rebuild_cache/fast: rebuild_cache
 
 # The main all target
 all: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/vlerm/gh-repos/improved-fraction/build/CMakeFiles /home/vlerm/gh-repos/improved-fraction/build//CMakeFiles/progress.marks
+	$(CMAKE_COMMAND) -E cmake_progress_start /Users/u23140/gh-projects/arlogix-calculator/build/CMakeFiles /Users/u23140/gh-projects/arlogix-calculator/build//CMakeFiles/progress.marks
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 all
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/vlerm/gh-repos/improved-fraction/build/CMakeFiles 0
+	$(CMAKE_COMMAND) -E cmake_progress_start /Users/u23140/gh-projects/arlogix-calculator/build/CMakeFiles 0
 .PHONY : all
 
 # The main codegen target
 codegen: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/vlerm/gh-repos/improved-fraction/build/CMakeFiles /home/vlerm/gh-repos/improved-fraction/build//CMakeFiles/progress.marks
+	$(CMAKE_COMMAND) -E cmake_progress_start /Users/u23140/gh-projects/arlogix-calculator/build/CMakeFiles /Users/u23140/gh-projects/arlogix-calculator/build//CMakeFiles/progress.marks
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 codegen
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/vlerm/gh-repos/improved-fraction/build/CMakeFiles 0
+	$(CMAKE_COMMAND) -E cmake_progress_start /Users/u23140/gh-projects/arlogix-calculator/build/CMakeFiles 0
 .PHONY : codegen
 
 # The main clean target
@@ -137,19 +137,6 @@ inline_dummy/fast:
 .PHONY : inline_dummy/fast
 
 #=============================================================================
-# Target rules for targets named lib
-
-# Build rule for target.
-lib: cmake_check_build_system
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 lib
-.PHONY : lib
-
-# fast build rule for target.
-lib/fast:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/lib.dir/build.make CMakeFiles/lib.dir/build
-.PHONY : lib/fast
-
-#=============================================================================
 # Target rules for targets named fraction
 
 # Build rule for target.
@@ -162,53 +149,12 @@ fraction/fast:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/fraction.dir/build.make CMakeFiles/fraction.dir/build
 .PHONY : fraction/fast
 
-#=============================================================================
-# Target rules for targets named run_tests
-
-# Build rule for target.
-run_tests: cmake_check_build_system
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 run_tests
-.PHONY : run_tests
-
-# fast build rule for target.
-run_tests/fast:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/run_tests.dir/build.make CMakeFiles/run_tests.dir/build
-.PHONY : run_tests/fast
-
-#=============================================================================
-# Target rules for targets named Catch2
-
-# Build rule for target.
-Catch2: cmake_check_build_system
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 Catch2
-.PHONY : Catch2
-
-# fast build rule for target.
-Catch2/fast:
-	$(MAKE) $(MAKESILENT) -f _deps/catch2-build/src/CMakeFiles/Catch2.dir/build.make _deps/catch2-build/src/CMakeFiles/Catch2.dir/build
-.PHONY : Catch2/fast
-
-#=============================================================================
-# Target rules for targets named Catch2WithMain
-
-# Build rule for target.
-Catch2WithMain: cmake_check_build_system
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 Catch2WithMain
-.PHONY : Catch2WithMain
-
-# fast build rule for target.
-Catch2WithMain/fast:
-	$(MAKE) $(MAKESILENT) -f _deps/catch2-build/src/CMakeFiles/Catch2WithMain.dir/build.make _deps/catch2-build/src/CMakeFiles/Catch2WithMain.dir/build
-.PHONY : Catch2WithMain/fast
-
 lib/fraction.o: lib/fraction.cpp.o
 .PHONY : lib/fraction.o
 
 # target to build an object file
 lib/fraction.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/lib.dir/build.make CMakeFiles/lib.dir/lib/fraction.cpp.o
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/fraction.dir/build.make CMakeFiles/fraction.dir/lib/fraction.cpp.o
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/run_tests.dir/build.make CMakeFiles/run_tests.dir/lib/fraction.cpp.o
 .PHONY : lib/fraction.cpp.o
 
 lib/fraction.i: lib/fraction.cpp.i
@@ -216,9 +162,7 @@ lib/fraction.i: lib/fraction.cpp.i
 
 # target to preprocess a source file
 lib/fraction.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/lib.dir/build.make CMakeFiles/lib.dir/lib/fraction.cpp.i
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/fraction.dir/build.make CMakeFiles/fraction.dir/lib/fraction.cpp.i
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/run_tests.dir/build.make CMakeFiles/run_tests.dir/lib/fraction.cpp.i
 .PHONY : lib/fraction.cpp.i
 
 lib/fraction.s: lib/fraction.cpp.s
@@ -226,9 +170,7 @@ lib/fraction.s: lib/fraction.cpp.s
 
 # target to generate assembly for a file
 lib/fraction.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/lib.dir/build.make CMakeFiles/lib.dir/lib/fraction.cpp.s
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/fraction.dir/build.make CMakeFiles/fraction.dir/lib/fraction.cpp.s
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/run_tests.dir/build.make CMakeFiles/run_tests.dir/lib/fraction.cpp.s
 .PHONY : lib/fraction.cpp.s
 
 main.o: main.cpp.o
@@ -255,102 +197,6 @@ main.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/fraction.dir/build.make CMakeFiles/fraction.dir/main.cpp.s
 .PHONY : main.cpp.s
 
-tests/main.o: tests/main.cpp.o
-.PHONY : tests/main.o
-
-# target to build an object file
-tests/main.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/run_tests.dir/build.make CMakeFiles/run_tests.dir/tests/main.cpp.o
-.PHONY : tests/main.cpp.o
-
-tests/main.i: tests/main.cpp.i
-.PHONY : tests/main.i
-
-# target to preprocess a source file
-tests/main.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/run_tests.dir/build.make CMakeFiles/run_tests.dir/tests/main.cpp.i
-.PHONY : tests/main.cpp.i
-
-tests/main.s: tests/main.cpp.s
-.PHONY : tests/main.s
-
-# target to generate assembly for a file
-tests/main.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/run_tests.dir/build.make CMakeFiles/run_tests.dir/tests/main.cpp.s
-.PHONY : tests/main.cpp.s
-
-tests/test_linked_list.o: tests/test_linked_list.cpp.o
-.PHONY : tests/test_linked_list.o
-
-# target to build an object file
-tests/test_linked_list.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/run_tests.dir/build.make CMakeFiles/run_tests.dir/tests/test_linked_list.cpp.o
-.PHONY : tests/test_linked_list.cpp.o
-
-tests/test_linked_list.i: tests/test_linked_list.cpp.i
-.PHONY : tests/test_linked_list.i
-
-# target to preprocess a source file
-tests/test_linked_list.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/run_tests.dir/build.make CMakeFiles/run_tests.dir/tests/test_linked_list.cpp.i
-.PHONY : tests/test_linked_list.cpp.i
-
-tests/test_linked_list.s: tests/test_linked_list.cpp.s
-.PHONY : tests/test_linked_list.s
-
-# target to generate assembly for a file
-tests/test_linked_list.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/run_tests.dir/build.make CMakeFiles/run_tests.dir/tests/test_linked_list.cpp.s
-.PHONY : tests/test_linked_list.cpp.s
-
-tests/test_queue.o: tests/test_queue.cpp.o
-.PHONY : tests/test_queue.o
-
-# target to build an object file
-tests/test_queue.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/run_tests.dir/build.make CMakeFiles/run_tests.dir/tests/test_queue.cpp.o
-.PHONY : tests/test_queue.cpp.o
-
-tests/test_queue.i: tests/test_queue.cpp.i
-.PHONY : tests/test_queue.i
-
-# target to preprocess a source file
-tests/test_queue.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/run_tests.dir/build.make CMakeFiles/run_tests.dir/tests/test_queue.cpp.i
-.PHONY : tests/test_queue.cpp.i
-
-tests/test_queue.s: tests/test_queue.cpp.s
-.PHONY : tests/test_queue.s
-
-# target to generate assembly for a file
-tests/test_queue.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/run_tests.dir/build.make CMakeFiles/run_tests.dir/tests/test_queue.cpp.s
-.PHONY : tests/test_queue.cpp.s
-
-tests/test_stack.o: tests/test_stack.cpp.o
-.PHONY : tests/test_stack.o
-
-# target to build an object file
-tests/test_stack.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/run_tests.dir/build.make CMakeFiles/run_tests.dir/tests/test_stack.cpp.o
-.PHONY : tests/test_stack.cpp.o
-
-tests/test_stack.i: tests/test_stack.cpp.i
-.PHONY : tests/test_stack.i
-
-# target to preprocess a source file
-tests/test_stack.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/run_tests.dir/build.make CMakeFiles/run_tests.dir/tests/test_stack.cpp.i
-.PHONY : tests/test_stack.cpp.i
-
-tests/test_stack.s: tests/test_stack.cpp.s
-.PHONY : tests/test_stack.s
-
-# target to generate assembly for a file
-tests/test_stack.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/run_tests.dir/build.make CMakeFiles/run_tests.dir/tests/test_stack.cpp.s
-.PHONY : tests/test_stack.cpp.s
-
 # Help Target
 help:
 	@echo "The following are some of the valid targets for this Makefile:"
@@ -360,30 +206,14 @@ help:
 	@echo "... codegen"
 	@echo "... edit_cache"
 	@echo "... rebuild_cache"
-	@echo "... Catch2"
-	@echo "... Catch2WithMain"
 	@echo "... fraction"
 	@echo "... inline_dummy"
-	@echo "... lib"
-	@echo "... run_tests"
 	@echo "... lib/fraction.o"
 	@echo "... lib/fraction.i"
 	@echo "... lib/fraction.s"
 	@echo "... main.o"
 	@echo "... main.i"
 	@echo "... main.s"
-	@echo "... tests/main.o"
-	@echo "... tests/main.i"
-	@echo "... tests/main.s"
-	@echo "... tests/test_linked_list.o"
-	@echo "... tests/test_linked_list.i"
-	@echo "... tests/test_linked_list.s"
-	@echo "... tests/test_queue.o"
-	@echo "... tests/test_queue.i"
-	@echo "... tests/test_queue.s"
-	@echo "... tests/test_stack.o"
-	@echo "... tests/test_stack.i"
-	@echo "... tests/test_stack.s"
 .PHONY : help
 
 

@@ -5,7 +5,7 @@
 
 template <typename T>
 void Stack<T>::push(const T& data) {
-  this->addNodeLast(new Node(data));
+  this->addNodeLast(new Node<T>(data));
 }
 
 template <typename T>

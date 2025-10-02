@@ -44,19 +44,19 @@ cmake_force:
 SHELL = /bin/sh
 
 # The CMake executable.
-CMAKE_COMMAND = /usr/bin/cmake
+CMAKE_COMMAND = /Users/u23140/homebrew/bin/cmake
 
 # The command to remove a file.
-RM = /usr/bin/cmake -E rm -f
+RM = /Users/u23140/homebrew/bin/cmake -E rm -f
 
 # Escaping for special characters.
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = /home/vlerm/gh-repos/improved-fraction
+CMAKE_SOURCE_DIR = /Users/u23140/gh-projects/arlogix-calculator
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = /home/vlerm/gh-repos/improved-fraction/build
+CMAKE_BINARY_DIR = /Users/u23140/gh-projects/arlogix-calculator/build
 
 # Include any dependencies generated for this target.
 include CMakeFiles/inline_dummy.dir/depend.make
@@ -84,6 +84,6 @@ CMakeFiles/inline_dummy.dir/clean:
 .PHONY : CMakeFiles/inline_dummy.dir/clean
 
 CMakeFiles/inline_dummy.dir/depend:
-	cd /home/vlerm/gh-repos/improved-fraction/build && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" /home/vlerm/gh-repos/improved-fraction /home/vlerm/gh-repos/improved-fraction /home/vlerm/gh-repos/improved-fraction/build /home/vlerm/gh-repos/improved-fraction/build /home/vlerm/gh-repos/improved-fraction/build/CMakeFiles/inline_dummy.dir/DependInfo.cmake "--color=$(COLOR)"
+	cd /Users/u23140/gh-projects/arlogix-calculator/build && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" /Users/u23140/gh-projects/arlogix-calculator /Users/u23140/gh-projects/arlogix-calculator /Users/u23140/gh-projects/arlogix-calculator/build /Users/u23140/gh-projects/arlogix-calculator/build /Users/u23140/gh-projects/arlogix-calculator/build/CMakeFiles/inline_dummy.dir/DependInfo.cmake "--color=$(COLOR)"
 .PHONY : CMakeFiles/inline_dummy.dir/depend
 
