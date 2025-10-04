@@ -8,7 +8,7 @@ class Stack : LinkedList<T> {
     void push(const T& data);
     T pop();
     bool isEmpty() const;
-    std::string toString() const;
+    String toString() const;
 };
 
 #include "stack.inl"

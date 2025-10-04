@@ -17,7 +17,7 @@ class LinkedList {
     void removeNodeLast();
     void removeNodeFirst();
 
-    std::string toString() const;
+    String toString() const;
   protected:    
     Node<T>* head;
 };

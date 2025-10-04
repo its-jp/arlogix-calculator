@@ -18,7 +18,7 @@ endif()
 
 add_executable(
   calculator
-  main.cpp lib/fraction.cpp lib/fraction.hpp
+  main.cpp lib/fraction.cpp lib/fraction.hpp lib/string.cpp lib/string.hpp
   lib/calculator/arlogix_calculator.cpp lib/calculator/arlogix_calculator.hpp)
 target_link_libraries(calculator PRIVATE inline_dummy)
 target_include_directories(calculator PRIVATE lib)

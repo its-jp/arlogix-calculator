@@ -1,0 +1,86 @@
+#include "string.hpp"
+
+String::String() : _size(0), data(NULL) {}
+
+String::String(const char* str) : _size(0), data(NULL) {
+    for(int i = 0; str[i] != '\0'; i++){
+        this->_size++;
+    }
+    this->data = new char[_size + 1];
+    for(int i = 0; i < _size; i++){
+        this->data[i] = str[i];
+    }
+    this->data[_size] = '\0';
+    
+}
+String::String(const String& outra) {
+    _size = outra._size;
+    data = new char[_size+1];
+    for (unsigned int i = 0; i < _size; i++) {
+        data[i] = outra.data[i];
+    }
+    data[_size] = '\0';
+}
+
+String& String::operator+(const String& outra){
+    char* nova = new char[_size + outra._size + 1];
+    for (unsigned int i = 0; i < _size; i++) {
+        nova[i] = data[i];
+    }
+    for (unsigned int j = 0; j < outra._size; j++) {
+        nova[_size + j] = outra.data[j];
+    }
+    nova[_size + outra._size] = '\0';
+    data = nova;
+    _size = _size + outra._size;
+    return *this;
+}
+
+String& String::operator=(String& outro) { 
+    if (this != &outro) {
+        delete[] data; 
+        _size = outro._size;
+        data = new char[_size + 1];
+        for (unsigned int i = 0; i < _size; i++) {
+            data[i] = outro.data[i];
+        }
+        data[_size] = '\0';
+    }
+    return *this; 
+}
+String& String::operator+=(const String& outra) { 
+    return *this = *this + outra;
+}
+
+String& String::operator+=(const char& outra) { 
+    char str[2] = {outra, '\0'};
+    return *this = *this + String(str);
+}
+
+char String::operator[](unsigned int i) const { return data[i]; }
+bool String::operator==(const String& outro) const {
+    if (_size != outro._size) return false;
+    for(unsigned int i = 0; i < _size; i++){
+        if(data[i] != outro.data[i]) return false;
+    }
+    return true;
+}
+
+String::~String() { 
+    delete[] data;
+}
+
+std::ostream& operator<< ( std::ostream& os, const String& c ){
+    os << c.data;
+    return os;
+}
+
+void String::clear(){
+    delete[] data;
+    data = NULL;
+    _size = 0;
+}
+bool String::empty() const { return _size == 0; }
+unsigned int String::size() const { return _size;}
+unsigned int String::length() const { return _size;}
+char* String::c_str() const { return data; }

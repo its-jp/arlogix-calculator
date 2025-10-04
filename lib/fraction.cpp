@@ -1,4 +1,5 @@
 #include "fraction.hpp"
+#include "string.h"
 #include <iostream>
 #include <vector>
 
@@ -9,9 +10,7 @@ int Fraction::removeSignal(const int n){
 }
 
 void Fraction::simplify(Fraction& f){
-  //TODO: Search how to simplify a fraction in code!
-
-    int unsigned_denominator = Fraction::removeSignal(f.denominator);
+  int unsigned_denominator = Fraction::removeSignal(f.denominator);
   int unsigned_numerator = Fraction::removeSignal(f.numerator);
   int min_number = unsigned_denominator < unsigned_numerator ? unsigned_denominator: unsigned_numerator;
   int possible_divisor = 2;
@@ -151,8 +150,12 @@ bool Fraction::operator>=(const Fraction& f) const {
   return normalizedFractions.at(0).numerator >= normalizedFractions.at(1).numerator;
 }
 
-std::string Fraction::toString(){
-  return std::to_string(this->numerator) + "/" + std::to_string(this->denominator);
+String Fraction::toString() {
+  char numBuffer[12];
+  char denBuffer[12];
+  snprintf(numBuffer, sizeof(numBuffer), "%d", this->numerator);
+  snprintf(denBuffer, sizeof(numBuffer), "%d", this->denominator);
+  return String(numBuffer) + "/" + String(denBuffer);
 }
 
 

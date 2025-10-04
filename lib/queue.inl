@@ -23,6 +23,6 @@ bool Queue<T>::isEmpty() const {
 }
 
 template <typename T>
-std::string Queue<T>::toString() const {
+String Queue<T>::toString() const {
   return LinkedList<T>::toString();
 }

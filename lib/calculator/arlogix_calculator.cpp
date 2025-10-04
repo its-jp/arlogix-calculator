@@ -1,20 +1,26 @@
 #include "arlogix_calculator.hpp"
 #include "stack.hpp"
+#include <stdlib.h>
+
+using namespace std;
 
 static bool isOperator(const char& ch);
+static bool isGroupingSymbol(const char& ch);
 
-double ArlogixCalculator::evaluate(const std::string& expression) {
+double ArlogixCalculator::evaluate(const String& expression) {
   Stack<double> stack;
-  std::string token;
+  String token;
 
   for(int i = 0; i < expression.size(); i++){
     if(isGroupingSymbol(expression[i])){
     }
   }
-  for (char ch : expression) {
+
+  for (int i = 0; i < expression.size(); i++) {
+    char ch = expression[i];
     if (ch == ' ') {
       if (!token.empty()) {
-        stack.push(std::stod(token));
+        stack.push(atol(token.c_str()));
         token.clear();
       }
     } else if (isOperator(ch)) {
@@ -36,7 +42,7 @@ double ArlogixCalculator::evaluate(const std::string& expression) {
     }
   }
   if (!token.empty()) {
-    stack.push(std::stod(token));
+    stack.push(atol(token.c_str()));
   }
   return stack.pop();
 }

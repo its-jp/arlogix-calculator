@@ -101,9 +101,9 @@ void LinkedList<T>::removeNodeLast(){
 }
 
 template <typename T>
-std::string LinkedList<T>::toString() const {
+String LinkedList<T>::toString() const {
   if(this->head == nullptr) return "";
-  std::string result;
+  String result;
   int counter = 1;
   Node<T>* currentNode = this->head;
   while(currentNode != NULL){

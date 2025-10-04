@@ -23,6 +23,6 @@ bool Stack<T>::isEmpty() const {
 }
 
 template <typename T>
-std::string Stack<T>::toString() const {
+String Stack<T>::toString() const {
   return LinkedList<T>::toString();
 }

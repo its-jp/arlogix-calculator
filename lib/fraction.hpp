@@ -1,5 +1,6 @@
 #pragma once
 #include <iostream>
+#include "string.hpp"
 #include <vector>
 class Fraction{
   private:
@@ -27,7 +28,7 @@ class Fraction{
     bool operator<(const Fraction& f) const;
     bool operator<=(const Fraction& f) const;
     bool operator>=(const Fraction& f) const;
-    std::string toString();
+    String toString();
     
     static std::vector<Fraction> normalize(const Fraction& f1, const Fraction& f2);
     static void simplify(Fraction& f);

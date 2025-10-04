@@ -6,7 +6,7 @@
 #include <iostream>
 int main(){
   ArlogixCalculator calc;
-  std::string expression = "3 + 4 / 5";
+  String expression = "3 + 4 / 5";
 
   std::cout << "Expression: " << expression << std::endl;
   std::cout << "Result: " << calc.evaluate(expression) << std::endl;
