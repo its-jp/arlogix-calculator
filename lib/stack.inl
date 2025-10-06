@@ -18,6 +18,16 @@ T Stack<T>::pop() {
 }
 
 template <typename T>
+T Stack<T>::peek() const {
+  if(this->isEmpty()) throw std::runtime_error("Stack is empty");
+  Node<T>* current = this->head;
+  while(current->next) {
+    current = current->next;
+  }
+  return current->data;
+}
+
+template <typename T>
 bool Stack<T>::isEmpty() const {
   return this->head == nullptr;
 }

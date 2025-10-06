@@ -1,1 +1,0 @@
-/usr/bin/c++  -arch arm64 -Wl,-search_paths_first -Wl,-headerpad_max_install_names CMakeFiles/calculator.dir/main.cpp.o CMakeFiles/calculator.dir/lib/fraction.cpp.o CMakeFiles/calculator.dir/lib/calculator/arlogix_calculator.cpp.o -o calculator

@@ -1,5 +1,6 @@
 #include "linked_list.hpp"
 #include "node.hpp"
+#include "string.hpp"
 #include <iostream>
 #include <string>
 template <typename T>
@@ -107,8 +108,10 @@ String LinkedList<T>::toString() const {
   int counter = 1;
   Node<T>* currentNode = this->head;
   while(currentNode != NULL){
-    result += std::to_string(counter) + " : " + std::to_string(currentNode->data) + "\n";
+    result += String::to_string(counter++) + " : " + String::to_string(currentNode->data) + "\n";
     currentNode = currentNode->next;
   }
   return result;
 }
+
+

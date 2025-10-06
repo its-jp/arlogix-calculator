@@ -2,7 +2,7 @@
 
 #include "stdlib.h"
 #include <ostream>
-
+#include "calculator/token.hpp"
 class String {
     private:
         char* data;
@@ -25,4 +25,11 @@ class String {
         unsigned int size() const;
         unsigned int length() const;
         char* c_str() const;
+
+
+        static String to_string(char value);
+        static String to_string(int value);
+        static String to_string(double value);
+        static String to_string(float value);
+        static String to_string(Token value);
 };

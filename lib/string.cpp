@@ -1,4 +1,6 @@
 #include "string.hpp"
+#include "calculator/token.hpp"
+#include <cstdio>
 
 String::String() : _size(0), data(NULL) {}
 
@@ -79,6 +81,35 @@ void String::clear(){
     delete[] data;
     data = NULL;
     _size = 0;
+}
+
+String String::to_string(int value){
+    char buffer[32];
+    sprintf(buffer, "%d", value);
+    return String(buffer);
+}
+
+String String::to_string(float value){
+  char buffer[32];
+  sprintf(buffer, "%f", value);
+  return String(buffer);
+}
+
+String String::to_string(double value){
+  char buffer[64];
+  sprintf(buffer, "%f", value);
+  return String(buffer);
+}
+
+String String::to_string(char value){
+  char buffer[2];
+  sprintf(buffer, "%c", value);
+  return String(buffer);
+}
+
+String String::to_string(Token value){
+  if(value.type == NUMBER) return String::to_string(value.number);
+  else return String::to_string(value.op);
 }
 bool String::empty() const { return _size == 0; }
 unsigned int String::size() const { return _size;}
