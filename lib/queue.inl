@@ -26,3 +26,8 @@ template <typename T>
 String Queue<T>::toString() const {
   return LinkedList<T>::toString();
 }
+
+template <typename T>
+T Queue<T>::at(int index) const {
+  return LinkedList<T>::at(index);
+}

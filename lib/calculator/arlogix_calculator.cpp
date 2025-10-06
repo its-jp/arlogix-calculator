@@ -1,12 +1,10 @@
 #include "arlogix_calculator.hpp"
-#include "calculator/token.hpp"
-#include "stack.hpp"
-#include "queue.hpp"
-#include "string.hpp"
+#include "token.hpp"
+#include "../stack.hpp"
+#include "../queue.hpp"
+#include "../string.hpp"
 #include <iostream>
 #include <stdlib.h>
-
-using namespace std;
 
 static bool isOperator(const char &ch);
 static bool isStartGroupingSymbol(const char &ch);
@@ -14,11 +12,12 @@ static bool isEndGroupingSymbol(const char &ch);
 static bool isMatchGroupingSymbol(const char &c1, const char &c2);
 static bool isDigit(const char &ch);
 static int precendence(const char &op);
+static bool findOperator(const char &c);
 
 static void eliminateGroupingSymbol(const char& c, Stack<char>& stack);
 
 static double calculatePosfix(Queue<Token> queue);
-double ArlogixCalculator::evaluate(const String &expression) {
+double ArlogixCalculator::evaluateArithmetic(const String &expression) {
   Stack<char> stack;
   Queue<Token> queue;
   String token;
@@ -69,12 +68,19 @@ double ArlogixCalculator::evaluate(const String &expression) {
   return queue.dequeue().number;
 }
 
+bool ArlogixCalculator::evaluateLogic(const String& expression){
+
+
+}
+
 static double calculatePosfix(Queue<Token> queue){
-  
+  while(!queue.isEmpty()){
+  }
+
 }
 
 
-static void eliminateGroupingSymbol(const char &c, Stack<char> &stack, Queue<Token> &queue){
+static void eliminateGroupingSymbol(const char &c, Stack<char> &stack){
   Stack<char> aux;
 
   //TODO: need to solve why the grouping symbol is not being kicked out of the stack!

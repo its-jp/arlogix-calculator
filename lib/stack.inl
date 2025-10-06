@@ -36,3 +36,8 @@ template <typename T>
 String Stack<T>::toString() const {
   return LinkedList<T>::toString();
 }
+
+template <typename T>
+T Stack<T>::at(int index) const {
+  return LinkedList<T>::at(index);
+}

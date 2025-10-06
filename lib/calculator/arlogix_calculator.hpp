@@ -3,5 +3,6 @@
 class ArlogixCalculator {
   public:
     ArlogixCalculator() = default;
-    double evaluate(const String& expression);
+    double evaluateArithmetic(const String& expression);
+    bool evaluateLogic(const String& expression);
 };

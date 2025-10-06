@@ -18,6 +18,7 @@ class LinkedList {
     void removeNodeFirst();
 
     String toString() const;
+    T at(int index) const;
   protected:    
     Node<T>* head;
 };

@@ -115,3 +115,19 @@ String LinkedList<T>::toString() const {
 }
 
 
+template <typename T>
+T LinkedList<T>::at(int index) const {
+  if(this->head == nullptr) return NULL;
+  Node<T>* currentNode = this->head;
+  int counter = 0;
+  while(currentNode != NULL){
+    if(index == counter){
+      return currentNode->data;
+    }
+    counter++;
+    currentNode = currentNode->next;
+  }
+  return NULL;
+}
+
+

@@ -7,6 +7,7 @@ class Queue : private LinkedList<T> {
     Queue() : LinkedList<T>() {};
     void enqueue(const T& data);
     T dequeue();
+    T at(int index) const;
     bool isEmpty() const;
     String toString() const;
 };
