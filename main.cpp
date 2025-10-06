@@ -9,6 +9,6 @@ int main(){
   String expression = "3 + 4 / 5 ^ 2";
   
   std::cout << "Expression: " << expression << std::endl;
-  std::cout << "Result: " << calc.evaluate(expression) << std::endl;
+  std::cout << "Result: " << calc.evaluateArithmetic(expression) << std::endl;
   return 0;
 }

@@ -69,14 +69,14 @@ double ArlogixCalculator::evaluateArithmetic(const String &expression) {
 }
 
 bool ArlogixCalculator::evaluateLogic(const String& expression){
-
-
+  return false;
 }
 
 static double calculatePosfix(Queue<Token> queue){
   while(!queue.isEmpty()){
   }
 
+  return 0.0;
 }
 
 
