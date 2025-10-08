@@ -1,7 +1,7 @@
 #include "string.hpp"
 #include "calculator/token.hpp"
-#include <cstdio>
-
+#include <stdio.h>
+#include <iostream>
 String::String() : _size(0), data(NULL) {}
 
 String::String(const char* str) : _size(0), data(NULL) {
@@ -85,25 +85,25 @@ void String::clear(){
 
 String String::to_string(int value){
     char buffer[32];
-    sprintf(buffer, "%d", value);
+    snprintf(buffer, sizeof(buffer), "%d", value);
     return String(buffer);
 }
 
 String String::to_string(float value){
   char buffer[32];
-  sprintf(buffer, "%f", value);
+  snprintf(buffer, sizeof(buffer), "%f", value);
   return String(buffer);
 }
 
 String String::to_string(double value){
   char buffer[64];
-  sprintf(buffer, "%f", value);
+  snprintf(buffer, sizeof(buffer), "%f", value);
   return String(buffer);
 }
 
 String String::to_string(char value){
   char buffer[2];
-  sprintf(buffer, "%c", value);
+  snprintf(buffer, sizeof(buffer), "%c", value);
   return String(buffer);
 }
 

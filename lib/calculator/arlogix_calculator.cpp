@@ -5,15 +5,16 @@
 #include "../string.hpp"
 #include <iostream>
 #include <stdlib.h>
+#include <cmath>
 
 static bool isOperator(const char &ch);
 static bool isStartGroupingSymbol(const char &ch);
 static bool isEndGroupingSymbol(const char &ch);
 static bool isMatchGroupingSymbol(const char &c1, const char &c2);
 static bool isDigit(const char &ch);
-static int precendence(const char &op);
+static int precedence(const char &op);
 static bool findOperator(const char &c);
-
+static bool isRelationalOperator(const char &c);
 static void eliminateGroupingSymbol(const char& c, Stack<char>& stack);
 
 static double calculatePosfix(Queue<Token> queue);
@@ -39,7 +40,7 @@ double ArlogixCalculator::evaluateArithmetic(const String &expression) {
     }
     else if(isOperator(expression[i]) || isStartGroupingSymbol(expression[i])) {
       if(stack.isEmpty()) stack.push(expression[i]);
-      else if(precendence(stack.peek()) >= precendence(expression[i])){
+      else if(precedence(stack.peek()) >= precedence(expression[i])){
         char popped = stack.pop();
         Token t;
         t.type = OPERATOR;
@@ -65,18 +66,59 @@ double ArlogixCalculator::evaluateArithmetic(const String &expression) {
   }
 
   std::cout << queue.toString() << '\n';
-  return queue.dequeue().number;
+  return calculatePosfix(queue);
+
+  // return queue.dequeue().number;
 }
 
 bool ArlogixCalculator::evaluateLogic(const String& expression){
+  //TODO: need to add precedenceLogic order for every posfix generated, such as the other relational operators!
+  Queue<Token> queue;
+  String infix;
+  for(int i = 0; i < expression.size(); i++){
+
+    while(!isRelationalOperator(expression[i])) {
+      infix += expression[i];
+      i++;
+    }
+    Token evaluatedToken;
+    evaluatedToken.type = NUMBER;
+    evaluatedToken.number = evaluateArithmetic(infix);
+    infix.clear();
+    queue.enqueue(evaluatedToken);
+
+    Token t;
+    t.type = OPERATOR;
+    t.op = expression[i];
+  }
   return false;
 }
 
 static double calculatePosfix(Queue<Token> queue){
+  Stack<Token> aux;
   while(!queue.isEmpty()){
+    Token t = queue.dequeue();
+    if(!(t.type == OPERATOR)) aux.push(t);
+    else {
+      Token secOperandToken = aux.pop();
+      Token firstOperandToken = aux.pop();
+
+      Token newToken;
+      newToken.type = NUMBER;
+      switch(t.op){
+        case '+': newToken.number = firstOperandToken.number + secOperandToken.number; break;
+        case '-': newToken.number = firstOperandToken.number - secOperandToken.number; break;
+        case '/': newToken.number = firstOperandToken.number / secOperandToken.number; break;
+        case '*': newToken.number = firstOperandToken.number * secOperandToken.number; break;
+        case '^': newToken.number = pow(firstOperandToken.number, secOperandToken.number); break;
+        default: break;
+      }
+
+      aux.push(newToken);
+    }
   }
 
-  return 0.0;
+  return aux.pop().number;
 }
 
 
@@ -114,12 +156,19 @@ static bool isMatchGroupingSymbol(const char &c1, const char &c2){
   return (c1 == '(' && c2 == ')') || (c1 == '{' && c2 == '}') || (c1 == '[' && c2 == ']');
 }
 
-static int precendence(const char &op) {
-  if (op == '+' || op == '-' || isStartGroupingSymbol(op))
+static int precedence(const char &op) {
+  if(op == '>' || op == '<' || op == '=' || op == '!')
     return 1;
-  if (op == '*' || op == '/')
+  if (op == '+' || op == '-' || isStartGroupingSymbol(op))
     return 2;
-  if (op == '^')
+  if (op == '*' || op == '/')
     return 3;
-  return 0;
+  if (op == '^')
+    return 4;
+  return 0; //NOTE: returns 0 if it is a logic operator! (|, &, n)
+}
+
+
+static bool isRelationalOperator(const char &c){
+  return c == '!' || c == '=' || c == '<' || c == '>';
 }
