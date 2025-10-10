@@ -20,16 +20,22 @@ add_executable(
   calculator
   main.cpp lib/fraction.cpp lib/fraction.hpp lib/string.cpp lib/string.hpp
   lib/calculator/arlogix_calculator.cpp lib/calculator/arlogix_calculator.hpp)
-target_link_libraries(calculator PRIVATE inline_dummy)
+target_link_libraries(calculator PRIVATE inline_dummy arlogix_ui)
 target_include_directories(calculator PRIVATE lib)
 
 
 include(FetchContent)
 
-FetchContent_Declare( catch2 GIT_REPOSITORY
-https://github.com/catchorg/Catch2.git GIT_TAG v3.4.0)
+FetchContent_Declare(catch2 GIT_REPOSITORY https://github.com/catchorg/Catch2.git
+                                GIT_TAG v3.4.0)
+FetchContent_Declare(raylib GIT_REPOSITORY https://github.com/raysan5/raylib.git
+                                GIT_TAG master)
 
 FetchContent_MakeAvailable(catch2)
+FetchContent_MakeAvailable(raylib)
+
+add_library(arlogix_ui lib/ui/ui.cpp)
+target_link_libraries(arlogix_ui PUBLIC raylib)
 
 file(GLOB_RECURSE TEST_SOURCES "tests/*.cpp")
 add_executable(run_tests ${TEST_SOURCES} lib/string.cpp lib/calculator/arlogix_calculator.cpp)
