@@ -9,7 +9,7 @@ class Stack : LinkedList<T> {
     void push(const T& data);
     T pop();
     T at(int index) const;
-    T peek() const;
+    T peek();
     bool isEmpty() const;
     String toString() const;
     int size() const;

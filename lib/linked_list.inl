@@ -10,7 +10,8 @@ template <typename T>
 LinkedList<T>::LinkedList(const LinkedList<T>& l) : head(nullptr) {
   Node<T>* currentNode = l.head;
   while(currentNode != nullptr){
-    this->addNodeLast(currentNode);
+    Node<T>* newNode = new Node<T>(currentNode->data);
+    this->addNodeLast(newNode);
     currentNode = currentNode->next;
   }
 }
@@ -89,12 +90,20 @@ void LinkedList<T>::removeNodeLast(){
 
   Node<T>* currentNode = this->head;
   Node<T>* prevNode = nullptr;
+  
   while(currentNode->next != nullptr){
     prevNode = currentNode;
     currentNode = currentNode->next;
   }
   //INFO: Checks if there is only the head as node!
-  if(currentNode == nullptr){
+  if (prevNode == nullptr) { 
+    delete this->head;
+    this->head = nullptr;
+    return;
+  }
+
+  prevNode->next = nullptr;
+  delete currentNode;if(currentNode == nullptr){
     this->head = nullptr;
   }
   prevNode->next = nullptr;
@@ -134,10 +143,16 @@ template <typename T>
 int LinkedList<T>::size() const {
   if(this->head == nullptr) return 0;
   Node<T>* currentNode = this->head;
-  int counter = 1;
+  int counter = 0;
   while(currentNode != NULL){
     counter++;
     currentNode = currentNode->next;
   }
   return counter;
+}
+
+
+template <typename T>
+bool LinkedList<T>::isEmpty() const {
+  return this->head == nullptr;
 }

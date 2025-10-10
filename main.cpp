@@ -6,7 +6,7 @@
 #include <iostream>
 int main(){
   ArlogixCalculator calc;
-  String expression = "3 + 4";
+  String expression = "(15 + 3) / 2";
   
   std::cout << "Expression: " << expression << std::endl;
   std::cout << "Result: " << calc.evaluateArithmetic(expression) << std::endl;

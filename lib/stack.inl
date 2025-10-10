@@ -1,45 +1,38 @@
 #include "linked_list.hpp"
 #include "stack.hpp"
-#include <stdexcept>
-#include <string>
-
 template <typename T>
 void Stack<T>::push(const T& data) {
-  this->addNodeLast(new Node<T>(data));
+  Node<T>* node = new Node<T>(data);
+  LinkedList<T>::addNodeLast(node);
 }
 
 template <typename T>
 T Stack<T>::pop() {
-  Node<T>* node = this->popNodeLast();
-  if(!node) throw std::runtime_error("Stack Underflow");
-  T data = node->data;
-  delete node;
+  T data = (LinkedList<T>::popNodeLast())->data;
   return data;
 }
 
 template <typename T>
-T Stack<T>::peek() const {
-  if(this->isEmpty()) throw std::runtime_error("Stack is empty");
-  Node<T>* current = this->head;
-  while(current->next) {
-    current = current->next;
-  }
-  return current->data;
+T Stack<T>:: at(int index) const {
+  return LinkedList<T>::at(index);
+}
+
+template <typename T>
+T Stack<T>::peek() {
+  Node<T>* node = LinkedList<T>::popNodeLast();
+  T data = node->data;
+  LinkedList<T>::addNodeLast(node);
+  return data;
 }
 
 template <typename T>
 bool Stack<T>::isEmpty() const {
-  return this->head == nullptr;
+  return LinkedList<T>::isEmpty();
 }
 
 template <typename T>
 String Stack<T>::toString() const {
   return LinkedList<T>::toString();
-}
-
-template <typename T>
-T Stack<T>::at(int index) const {
-  return LinkedList<T>::at(index);
 }
 
 template <typename T>
