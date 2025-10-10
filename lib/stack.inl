@@ -41,3 +41,8 @@ template <typename T>
 T Stack<T>::at(int index) const {
   return LinkedList<T>::at(index);
 }
+
+template <typename T>
+int Stack<T>::size() const {
+  return LinkedList<T>::size();
+}

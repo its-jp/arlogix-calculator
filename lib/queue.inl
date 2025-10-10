@@ -19,7 +19,7 @@ T Queue<T>::dequeue(){
 
 template <typename T>
 bool Queue<T>::isEmpty() const {
-  return this->head == nullptr;
+  return this->size() == 0;
 }
 
 template <typename T>
@@ -30,4 +30,9 @@ String Queue<T>::toString() const {
 template <typename T>
 T Queue<T>::at(int index) const {
   return LinkedList<T>::at(index);
+}
+
+template <typename T>
+int Queue<T>::size() const {
+  return LinkedList<T>::size();
 }

@@ -10,6 +10,7 @@ class Queue : private LinkedList<T> {
     T at(int index) const;
     bool isEmpty() const;
     String toString() const;
+    int size() const;
 };
 
 #include "queue.inl"

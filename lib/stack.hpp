@@ -12,6 +12,7 @@ class Stack : LinkedList<T> {
     T peek() const;
     bool isEmpty() const;
     String toString() const;
+    int size() const;
 };
 
 #include "stack.inl"

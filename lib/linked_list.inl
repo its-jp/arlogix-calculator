@@ -130,4 +130,14 @@ T LinkedList<T>::at(int index) const {
   return NULL;
 }
 
-
+template <typename T>
+int LinkedList<T>::size() const {
+  if(this->head == nullptr) return 0;
+  Node<T>* currentNode = this->head;
+  int counter = 1;
+  while(currentNode != NULL){
+    counter++;
+    currentNode = currentNode->next;
+  }
+  return counter;
+}

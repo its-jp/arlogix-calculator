@@ -19,6 +19,7 @@ class LinkedList {
 
     String toString() const;
     T at(int index) const;
+    int size() const;
   protected:    
     Node<T>* head;
 };

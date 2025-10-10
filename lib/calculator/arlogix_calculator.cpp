@@ -17,7 +17,7 @@ static bool findOperator(const char &c);
 static bool isRelationalOperator(const char &c);
 static void eliminateGroupingSymbol(const char& c, Stack<char>& stack);
 
-static double calculatePosfix(Queue<Token> queue);
+static double calculatePosfix(Queue<Token>& queue);
 double ArlogixCalculator::evaluateArithmetic(const String &expression) {
   Stack<char> stack;
   Queue<Token> queue;
@@ -94,14 +94,20 @@ bool ArlogixCalculator::evaluateLogic(const String& expression){
   return false;
 }
 
-static double calculatePosfix(Queue<Token> queue){
+static double calculatePosfix(Queue<Token>& queue){
   Stack<Token> aux;
+  std::cout << queue.toString() << '\n';
   while(!queue.isEmpty()){
     Token t = queue.dequeue();
-    if(!(t.type == OPERATOR)) aux.push(t);
+    if(t.type == NUMBER) {
+      aux.push(t);
+    }
     else {
+      // std::cout << aux.toString() << '\n';
       Token secOperandToken = aux.pop();
+      // std::cout << aux.toString() << '\n';
       Token firstOperandToken = aux.pop();
+      // std::cout << aux.toString() << '\n';
 
       Token newToken;
       newToken.type = NUMBER;
@@ -111,13 +117,16 @@ static double calculatePosfix(Queue<Token> queue){
         case '/': newToken.number = firstOperandToken.number / secOperandToken.number; break;
         case '*': newToken.number = firstOperandToken.number * secOperandToken.number; break;
         case '^': newToken.number = pow(firstOperandToken.number, secOperandToken.number); break;
-        default: break;
+        default:
+          throw std::runtime_error("Error: Unknown Operator");
       }
 
       aux.push(newToken);
     }
   }
 
+  // std::cout << aux.toString() << '\n';
+  // if (aux.size() != 1){
   return aux.pop().number;
 }
 
