@@ -10,5 +10,11 @@ int main(){
   
   std::cout << "Expression: " << expression << std::endl;
   std::cout << "Result: " << calc.evaluateArithmetic(expression) << std::endl;
+
+  expression = "5 > 3 & 5 > 2 & 5 > 1";
+
+  std::cout << "Expression: " << expression << std::endl;
+  std::cout << "Result: " << calc.evaluateLogic(expression) << std::endl;
+  
   return 0;
 }

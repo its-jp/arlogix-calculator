@@ -18,12 +18,12 @@ static bool isRelationalOperator(const char &c);
 static void eliminateGroupingSymbol(const char& c, Stack<char>& stack, Queue<Token>& queue);
 
 static double calculatePosfix(Queue<Token>& queue);
+
 double ArlogixCalculator::evaluateArithmetic(const String &expression) {
+  if(expression.size() < 3) return atof(expression.c_str());
   Stack<char> stack;
   Queue<Token> queue;
   String token;
-  char prevToken;
-
   int i = 0;
   while(i < expression.size()){
     while(isDigit(expression[i]) || expression[i] == '.') {
@@ -35,9 +35,7 @@ double ArlogixCalculator::evaluateArithmetic(const String &expression) {
       t.number = atof(token.c_str());
       queue.enqueue(t);
       token.clear();
-    }
-    
-
+    } 
     if(isStartGroupingSymbol(expression[i])){
        stack.push(expression[i]);
     }
@@ -52,46 +50,11 @@ double ArlogixCalculator::evaluateArithmetic(const String &expression) {
       stack.push(expression[i]);
     }
     if(isEndGroupingSymbol(expression[i])){
-      std::cout << stack.toString() << '\n';
       eliminateGroupingSymbol(expression[i], stack, queue);
     }
-    std::cout << "=====STACK====" << '\n';
-    std::cout << stack.toString() << '\n';
-    std::cout << "==============" << '\n';
     i++;
   }
-
-  // for (int i = 0; i < expression.size(); i++) {
-  //   while (isDigit(expression[i]) || expression[i] == '.') {
-  //     token += expression[i++];
-  //   }
-  //   if (!token.empty()) {
-  //     double num = atof(token.c_str());
-  //     Token t;
-  //     t.type = NUMBER;
-  //     t.number = num;
-  //     queue.enqueue(t);
-  //     token.clear();
-  //   }
-  //   else if(isOperator(expression[i])) {
-  //     while(!stack.isEmpty() && isOperator(stack.peek()) &&
-  //         precedence(stack.peek()) >= precedence(expression[i])) {
-  //          char popped = stack.pop();
-  //         Token t;
-  //         t.type = OPERATOR;
-  //         t.op = popped;
-  //         queue.enqueue(t);
-  //     }
-  //     stack.push(expression[i]);
-  //   }
-  //   else if(isStartGroupingSymbol(expression[i])) {
-  //     stack.push(expression[i]); 
-  //   }
-  //   else if(isEndGroupingSymbol(expression[i])){
-  //     eliminateGroupingSymbol(expression[i], stack, queue); 
-  //   }
-
-  // }
+  
   while(!stack.isEmpty()){
     Token t;
     t.type = OPERATOR;
@@ -99,49 +62,67 @@ double ArlogixCalculator::evaluateArithmetic(const String &expression) {
     queue.enqueue(t);
   }
 
-  std::cout << queue.toString() << '\n';
   return calculatePosfix(queue);
 
-  // return queue.dequeue().number;
 }
 
 bool ArlogixCalculator::evaluateLogic(const String& expression){
   //TODO: need to add precedenceLogic order for every posfix generated, such as the other relational operators!
   Queue<Token> queue;
-  String infix;
-  for(int i = 0; i < expression.size(); i++){
-
-    while(!isRelationalOperator(expression[i])) {
-      infix += expression[i];
+  Stack<char> stack;
+  String posfix;
+  int i = 0;
+  while(i < expression.size()){
+    
+    while(!isRelationalOperator(expression[i]) && expression[i] != '\0') {
+      posfix += expression[i];
       i++;
     }
-    Token evaluatedToken;
-    evaluatedToken.type = NUMBER;
-    evaluatedToken.number = evaluateArithmetic(infix);
-    infix.clear();
-    queue.enqueue(evaluatedToken);
+    if(!posfix.empty()){
+      Token evaluatedToken;
+      evaluatedToken.type = NUMBER;
+      evaluatedToken.number = evaluateArithmetic(posfix);
+      queue.enqueue(evaluatedToken);
+      posfix.clear();
+    }
 
+    if(!stack.isEmpty() && precedence(stack.peek()) >= precedence(expression[i])) {
+      char popped = stack.pop();
+      if(popped == '\0' || popped == ' ') continue;
+      Token t;
+      t.type = OPERATOR;
+      t.op = popped;
+      queue.enqueue(t);
+      stack.push(expression[i]);
+    }
+    else{
+      stack.push(expression[i]);
+    }
+    i++;
+  }
+  while(!stack.isEmpty()){
+    
+    char popped = stack.pop();
+    if(popped == '\0' || popped == ' ') continue;
     Token t;
     t.type = OPERATOR;
-    t.op = expression[i];
+    t.op = popped;
+    queue.enqueue(t);
   }
-  return false;
+  std::cout << queue.toString() << std::endl;
+  return calculatePosfix(queue);
 }
 
 static double calculatePosfix(Queue<Token>& queue){
   Stack<Token> aux;
-  std::cout << queue.toString() << '\n';
   while(!queue.isEmpty()){
     Token t = queue.dequeue();
     if(t.type == NUMBER) {
       aux.push(t);
     }
     else {
-      // std::cout << aux.toString() << '\n';
       Token secOperandToken = aux.pop();
-      // std::cout << aux.toString() << '\n';
       Token firstOperandToken = aux.pop();
-      // std::cout << aux.toString() << '\n';
 
       Token newToken;
       newToken.type = NUMBER;
@@ -151,6 +132,13 @@ static double calculatePosfix(Queue<Token>& queue){
         case '/': newToken.number = firstOperandToken.number / secOperandToken.number; break;
         case '*': newToken.number = firstOperandToken.number * secOperandToken.number; break;
         case '^': newToken.number = pow(firstOperandToken.number, secOperandToken.number); break;
+        case '>': newToken.number = firstOperandToken.number > secOperandToken.number; break;
+        case '<': newToken.number = firstOperandToken.number < secOperandToken.number; break;
+        case '&': newToken.number = (firstOperandToken.number != 0) && (secOperandToken.number != 0); break;
+        case '|': newToken.number = (firstOperandToken.number != 0) || (secOperandToken.number != 0); break;
+        case '=': newToken.number = (firstOperandToken.number != 0) == (secOperandToken.number != 0); break;
+        case '!': newToken.number = (firstOperandToken.number != 0) != (secOperandToken.number != 0); break;
+        
         default:
           throw std::runtime_error("Error: Unknown Operator");
       }
@@ -159,11 +147,8 @@ static double calculatePosfix(Queue<Token>& queue){
     }
   }
 
-  // std::cout << aux.toString() << '\n';
-  // if (aux.size() != 1){
   return aux.pop().number;
 }
-
 
 static void eliminateGroupingSymbol(const char &c, Stack<char> &stack, Queue<Token> &queue){
   Stack<char> aux;
@@ -181,14 +166,10 @@ static void eliminateGroupingSymbol(const char &c, Stack<char> &stack, Queue<Tok
     t.op = aux.pop();
     queue.enqueue(t);
   }
-
-  // while(!aux.isEmpty()){
-  //   stack.push(aux.pop());
-  // }
 }
 
 static bool isOperator(const char &ch) {
-  return ch == '+' || ch == '-' || ch == '*' || ch == '/' || ch == '^';
+  return ch == '+' || ch == '-' || ch == '*' || ch == '/' || ch == '^' || ch == '!' || ch == '=' || ch == '<' || ch == '>';
 }
 
 static bool isDigit(const char &ch) { return (ch >= '0' && ch <= '9'); }
@@ -219,5 +200,5 @@ static int precedence(const char &op) {
 
 
 static bool isRelationalOperator(const char &c){
-  return c == '!' || c == '=' || c == '<' || c == '>';
-}
+  return c == '!' || c == '=' || c == '<' || c == '>' || c == '=' || c == '&' || c == '|' || c == '~';
+} 

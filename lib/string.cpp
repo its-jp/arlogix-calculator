@@ -50,6 +50,21 @@ String& String::operator=(String& outro) {
     }
     return *this; 
 }
+String& String::operator=(const char* other){
+    delete[] data;
+    int len = 0;
+    while(other[len] != '\0'){
+        len++;
+    }
+    _size = len;
+    data = new char[_size + 1];
+    for(unsigned int i = 0; i < _size; i++){
+        data[i] = other[i];
+    }
+    data[_size] = '\0';
+    return *this;
+    
+}
 String& String::operator+=(const String& outra) { 
     return *this = *this + outra;
 }
