@@ -1,14 +1,10 @@
-#include "lib/fraction.hpp"
-#include "lib/linked_list.hpp"
-#include "lib/queue.hpp"
-#include "lib/stack.hpp"
-#include "lib/calculator/arlogix_calculator.hpp"
-#include <iostream>
-int main(){
-  ArlogixCalculator calc;
-  String expression = "3 + 4";
-  
-  std::cout << "Expression: " << expression << std::endl;
-  std::cout << "Result: " << calc.evaluateArithmetic(expression) << std::endl;
-  return 0;
+#include <QApplication>
+
+#include "lib/ui/ui.hpp"
+
+int main(int argc, char* argv[]) {
+  QApplication app(argc, argv);
+  arlogix::UICalc window;
+  window.show();
+  return app.exec();
 }

@@ -78,8 +78,9 @@ std::ostream& operator<< ( std::ostream& os, const String& c ){
 }
 
 void String::clear(){
-    delete[] data;
-    data = NULL;
+    for(unsigned int i = 0; i < _size; i++){
+        data[i] = '\0';
+    }
     _size = 0;
 }
 
@@ -111,6 +112,21 @@ String String::to_string(Token value){
   if(value.type == NUMBER) return String::to_string(value.number);
   else return String::to_string(value.op);
 }
+
+void String::pop_back(){
+    if(_size == 0) return;
+    char* nova = new char[_size];
+
+    for(unsigned int i = 0; i < _size - 1; i++){
+        nova[i] = data[i];
+    }
+    
+    nova[_size - 1] = '\0';
+    delete[] data;
+    data = nova;
+    _size--;
+}
+
 bool String::empty() const { return _size == 0; }
 unsigned int String::size() const { return _size;}
 unsigned int String::length() const { return _size;}

@@ -21,6 +21,7 @@ class String {
         friend std::ostream& operator<< ( std::ostream& os, const String& c );
 
         void clear();
+        void pop_back();
         bool empty() const;
         unsigned int size() const;
         unsigned int length() const;

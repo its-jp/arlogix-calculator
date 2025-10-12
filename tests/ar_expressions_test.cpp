@@ -2,7 +2,7 @@
 #include "calculator/arlogix_calculator.hpp"
 #include "string.hpp"
 TEST_CASE("CALCULATOR - Arithmetic Expressions (NO PARENTHESIS)", "[ar_express]"){
-  ArlogixCalculator calc;
+  arlogix::calculator::ArlogixCalculator calc;
   String exp = "4 + 3 / 3";
   REQUIRE(calc.evaluateArithmetic(exp) == 5);
   
