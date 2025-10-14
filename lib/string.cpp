@@ -124,7 +124,7 @@ String String::to_string(char value){
 
 String String::to_string(Token value){
   if(value.type == NUMBER) return String::to_string(value.number);
-  else return String::to_string(value.op);
+  else return value.str;
 }
 bool String::empty() const { return _size == 0; }
 unsigned int String::size() const { return _size;}

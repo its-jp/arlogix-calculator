@@ -2,7 +2,8 @@
 
 #include "stdlib.h"
 #include <ostream>
-#include "calculator/token.hpp"
+
+struct Token;
 class String {
     private:
         char* data;
