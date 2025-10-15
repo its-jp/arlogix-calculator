@@ -1,5 +1,5 @@
 #include "string.hpp"
-#include "calculator/token.hpp"
+#include "lexer/token.hpp"
 #include <stdio.h>
 #include <iostream>
 String::String() : _size(0), data(NULL) {}

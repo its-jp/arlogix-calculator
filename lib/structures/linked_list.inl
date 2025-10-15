@@ -1,8 +1,6 @@
 #include "linked_list.hpp"
 #include "node.hpp"
-#include "string.hpp"
-#include <iostream>
-#include <string>
+#include "string/string.hpp"
 template <typename T>
 LinkedList<T>::LinkedList() : head(nullptr) {}
 

@@ -1,20 +1,20 @@
-#include "lib/fraction.hpp"
-#include "lib/linked_list.hpp"
-#include "lib/queue.hpp"
-#include "lib/stack.hpp"
 #include "lib/calculator/arlogix_calculator.hpp"
+#include "lib/structures/queue.hpp"
+#include "lib/structures/stack.hpp"
 #include <iostream>
-int main(){
+int main() {
   ArlogixCalculator calc;
   String expression = "(15 + 3) / 2";
-  
-  std::cout << "Expression: " << expression << std::endl;
-  std::cout << "Result: " << calc.evaluateArithmetic(expression) << std::endl;
 
-  // expression = "5 > 3 & 5 > 2 & 5 > 1";
-  //
-  // std::cout << "Expression: " << expression << std::endl;
-  // std::cout << "Result: " << calc.evaluateLogic(expression) << std::endl;
-  
+  std::cout << "Expression: " << expression << std::endl;
+  double res = calc.evaluateArithmetic(expression);
+  std::cout << "Result: " << res << std::endl;
+
+  expression = "(-1) > -3";
+
+  std::cout << "Expression: " << expression << std::endl;
+  res = calc.evaluateLogic(expression);
+  std::cout << "Result: " << res << std::endl;
+
   return 0;
 }

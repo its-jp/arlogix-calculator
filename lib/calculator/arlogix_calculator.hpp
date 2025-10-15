@@ -1,5 +1,5 @@
 #pragma once
-#include "../string.hpp"
+#include "string/string.hpp"
 class ArlogixCalculator {
   public:
     ArlogixCalculator() = default;

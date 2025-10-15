@@ -1,262 +1,223 @@
 #include "arlogix_calculator.hpp"
-#include "token.hpp"
-#include "../stack.hpp"
-#include "../queue.hpp"
+#include "lexer/token.hpp"
+#include "lexer/lexer.hpp"
+#include "structures/stack.hpp"
+#include "structures/queue.hpp"
+#include <cstring>
 #include <iostream>
+#include <stdexcept>
 #include <stdlib.h>
 #include <cmath>
-
-static bool isOperator(const char &ch);
-static bool isStartGroupingSymbol(const char &ch);
-static bool isEndGroupingSymbol(const char &ch);
-static bool isMatchGroupingSymbol(const char &c1, const char &c2);
-static bool isDigit(const char &ch);
-static int precedence(const char &op);
-static bool findOperator(const char &c);
-static bool isRelationalOperator(const char &c);
-static void eliminateGroupingSymbol(const char& c, Stack<char>& stack, Queue<Token>& queue);
-static Queue<Token> infixToPosfix(Queue<Token>& infixQueue);
-static Queue<Token> tokenize(const String& expression);
-// static double calculatePosfix(Queue<Token>& queue);
+#include "shunting_yard/shunting_yard.hpp"
+// static bool isOperator(const char &ch);
+// static bool isStartGroupingSymbol(const char &ch);
+// static bool isEndGroupingSymbol(const char &ch);
+// static bool isMatchGroupingSymbol(const char &c1, const char &c2);
+// static bool isDigit(const char &ch);
+// static int precedence(const String& s);
+// static bool findOperator(const char &c);
+// static bool isRelationalOperator(const char& c);
+// static void eliminateGroupingSymbol(const char& c, Stack<char>& stack, Queue<Token>& queue);
+// static void infixToPosfix(Queue<Token>& infixQueue);
+// static Queue<Token> tokenize(const String& expression);
+static double calculatePosfix(Queue<Token>& queue);
 
 double ArlogixCalculator::evaluateArithmetic(const String &expression) {
 
   // if(expression.size() < 3) return atof(expression.c_str());
   Stack<char> stack;
   Queue<Token> tokenizedQueue;
-  Queue<Token> posfixQueue;
-  String token;
-  int i = 0;
 
   //tokenizing the expression
-  tokenizedQueue = tokenize(expression); 
-  posfixQueue = infixToPosfix(tokenizedQueue);
-  std::cout << "Tokenized Expression: " << tokenizedQueue.toString() << std::endl;
+  tokenizedQueue = Lexer::tokenize(expression); 
+  std::cout << "\nTokenized Expression: " << tokenizedQueue.toString() << std::endl;
+  Queue<Token> posfixQueue = ShuntingYard::toPosfix(tokenizedQueue);
+  std::cout << "\nPosfixed Expression: " << tokenizedQueue.toString() << std::endl;
 
 
-  // return calculatePosfix(queue);
+  return calculatePosfix(posfixQueue);
 
 }
 
-// bool ArlogixCalculator::evaluateLogic(const String& expression){
-//   //TODO: need to add precedenceLogic order for every posfix generated, such as the other relational operators!
+bool ArlogixCalculator::evaluateLogic(const String& expression){
+  //TODO: need to add precedenceLogic order for every posfix generated, such as the other relational operators!
+  Queue<Token> tokenizedQueue = Lexer::tokenize(expression);
+  Queue<Token> posfixQueue = ShuntingYard::toPosfix(tokenizedQueue);
+
+  return calculatePosfix(posfixQueue);
+}
+
+static double calculatePosfix(Queue<Token>& queue){
+  Stack<Token> aux;
+  while(!queue.isEmpty()){
+    Token t = queue.dequeue();
+    if(t.type == NUMBER) {
+      aux.push(t);
+    }
+    else {
+      Token secOperandToken = aux.pop();
+      Token firstOperandToken = aux.pop();
+
+      Token newToken;
+      newToken.type = NUMBER;
+      if(t.str == "+") newToken.number = firstOperandToken.number + secOperandToken.number;
+      else if(t.str == "-") newToken.number = firstOperandToken.number - secOperandToken.number;
+      else if(t.str == "/") newToken.number = firstOperandToken.number / secOperandToken.number;
+      else if(t.str == "*") newToken.number = firstOperandToken.number * secOperandToken.number;
+      else if(t.str == "^") newToken.number = pow(firstOperandToken.number, secOperandToken.number);
+      else if(t.str == ">") newToken.number = firstOperandToken.number > secOperandToken.number;
+      else if(t.str == ">=") newToken.number = firstOperandToken.number >= secOperandToken.number;
+      else if(t.str == "<=") newToken.number = firstOperandToken.number <= secOperandToken.number;
+      else if(t.str == "<") newToken.number = firstOperandToken.number < secOperandToken.number;
+      else if(t.str == "&&") newToken.number = (firstOperandToken.number != 0) && (secOperandToken.number != 0);
+      else if(t.str == "||") newToken.number = (firstOperandToken.number != 0) || (secOperandToken.number != 0);
+      else if(t.str == "==") newToken.number = (firstOperandToken.number != 0) == (secOperandToken.number != 0);
+      else if(t.str == "!=") newToken.number = (firstOperandToken.number != 0) != (secOperandToken.number != 0);
+      else throw std::runtime_error("Error: Unknown Operator");
+      aux.push(newToken);
+    }
+  }
+
+  return aux.pop().number;
+}
+
+// static void eliminateGroupingSymbol(const char &c, Stack<Token> &stack, Queue<Token> &queue){
+//   Stack<Token> aux;
+//
+//   while(!stack.isEmpty() && !isStartGroupingSymbol(stack.peek().str[0])){
+//     aux.push(stack.pop());
+//   }
+//
+//   if(!stack.isEmpty() && isStartGroupingSymbol(stack.peek().str[0])){
+//     stack.pop();
+//   }
+//   while(!aux.isEmpty()){
+//     Token t(aux.pop().str, OPERATOR);
+//     t.type = OPERATOR;
+//     queue.enqueue(t);
+//   }
+// }
+//
+// static Queue<Token> tokenize(const String& expression) {
 //   Queue<Token> queue;
-//   Stack<char> stack;
-//   String posfix;
+//   String token;
+//   String cleanExpression;
 //   int i = 0;
+//   int lastRealCharIndex = -1;
 //   while(i < expression.size()){
+//     if(expression[i] == ' ') {i++; continue;}
 //
-//     while(!isRelationalOperator(expression[i]) && expression[i] != '\0') {
-//       posfix += expression[i];
-//       i++;
+//     //it only checks if '-' is part of the number or should be considered as an operator between two operands
+//     if (expression[i] == '-' && (i == 0 || isOperator(expression[i - 1]) || isRelationalOperator(expression[lastRealCharIndex]) || isStartGroupingSymbol(expression[lastRealCharIndex]))) { 
+//       token += expression[i++];
+//       lastRealCharIndex = i - 1;
 //     }
-//     if(!posfix.empty()){
-//       Token evaluatedToken;
-//       evaluatedToken.type = NUMBER;
-//       evaluatedToken.number = evaluateArithmetic(posfix);
-//       queue.enqueue(evaluatedToken);
-//       posfix.clear();
+//     while(i < expression.size() && (isDigit(expression[i]) || expression[i] == '.')) {
+//       token += expression[i++];
+//       lastRealCharIndex = i - 1;
 //     }
-//
-//     if(!stack.isEmpty() && precedence(stack.peek()) >= precedence(expression[i])) {
-//       char popped = stack.pop();
-//       if(popped == '\0' || popped == ' ') continue;
-//       Token t;
-//       t.type = OPERATOR;
-//       t.op = popped;
+//     if(!token.empty()){
+//       Token t(atof(token.c_str()));
 //       queue.enqueue(t);
-//       stack.push(expression[i]);
+//       token.clear();
+//     } 
+//     while(i < expression.size() && isOperator(expression[i])) { 
+//       token += expression[i++];
+//       lastRealCharIndex = i - 1;
 //     }
-//     else{
-//       stack.push(expression[i]);
+//     if(!token.empty()){
+//       Token t(token, OPERATOR);
+//       queue.enqueue(t);
+//       token.clear();
+//     }
+//     while(i < expression.size() && isRelationalOperator(expression[i])) {
+//       token += expression[i++];
+//       lastRealCharIndex = i - 1;
+//     }
+//     if(!token.empty()){
+//       Token t(token, OPERATOR);
+//       queue.enqueue(t);
+//       token.clear();
+//     }
+//     if(i < expression.size() && isStartGroupingSymbol(expression[i])){
+//       Token t(String::to_string(expression[i]), PARENTHESIS);
+//       queue.enqueue(t);
+//       lastRealCharIndex = i;  //lastRealCharIndex is setted to i (and not i - 1) because the i++ is at the end of the loop!
+//     }
+//     if(i < expression.size() && isEndGroupingSymbol(expression[i])){
+//       Token t(String::to_string(expression[i]), PARENTHESIS);
+//       queue.enqueue(t);
+//       lastRealCharIndex = i;  //lastRealCharIndex is setted to i (and not i - 1) because the i++ is at the end of the loop!
 //     }
 //     i++;
 //   }
-//   while(!stack.isEmpty()){
-//
-//     char popped = stack.pop();
-//     if(popped == '\0' || popped == ' ') continue;
-//     Token t;
-//     t.type = OPERATOR;
-//     t.op = popped;
-//     queue.enqueue(t);
-//   }
-//   std::cout << queue.toString() << std::endl;
-//   return calculatePosfix(queue);
+//   return queue;
 // }
 //
-// static double calculatePosfix(Queue<Token>& queue){
-//   Stack<Token> aux;
-//   while(!queue.isEmpty()){
-//     Token t = queue.dequeue();
-//     if(t.type == NUMBER) {
-//       aux.push(t);
-//     }
-//     else {
-//       Token secOperandToken = aux.pop();
-//       Token firstOperandToken = aux.pop();
-//
-//       Token newToken;
-//       newToken.type = NUMBER;
-//       switch(t.str){
-//         case '+': newToken.number = firstOperandToken.number + secOperandToken.number; break;
-//         case '-': newToken.number = firstOperandToken.number - secOperandToken.number; break;
-//         case '/': newToken.number = firstOperandToken.number / secOperandToken.number; break;
-//         case '*': newToken.number = firstOperandToken.number * secOperandToken.number; break;
-//         case '^': newToken.number = pow(firstOperandToken.number, secOperandToken.number); break;
-//         case '>': newToken.number = firstOperandToken.number > secOperandToken.number; break;
-//         case '<': newToken.number = firstOperandToken.number < secOperandToken.number; break;
-//         case '&': newToken.number = (firstOperandToken.number != 0) && (secOperandToken.number != 0); break;
-//         case '|': newToken.number = (firstOperandToken.number != 0) || (secOperandToken.number != 0); break;
-//         case '=': newToken.number = (firstOperandToken.number != 0) == (secOperandToken.number != 0); break;
-//         case '!': newToken.number = (firstOperandToken.number != 0) != (secOperandToken.number != 0); break;
-//
-//         default:
-//           throw std::runtime_error("Error: Unknown Operator");
+// static void infixToPosfix(Queue<Token>& infixQueue) {
+//   Queue<Token> posfixQueue;
+//   Stack<Token> stack;
+//   while(!infixQueue.isEmpty()){
+//     Token currentToken = infixQueue.dequeue();
+//     if(currentToken.type == PARENTHESIS){
+//       if(isStartGroupingSymbol(currentToken.str[0])){
+//         stack.push(currentToken);
 //       }
-//
-//       aux.push(newToken);
+//       if(isEndGroupingSymbol(currentToken.str[0])){
+//         eliminateGroupingSymbol(currentToken.str[0], stack, posfixQueue);
+//       }
+//     }
+//     if(currentToken.type == OPERATOR) {
+//       if(!stack.isEmpty() && precedence(stack.peek().str) >= precedence(currentToken.str)){
+//         Token popped = stack.pop();
+//         posfixQueue.enqueue(popped);
+//       }
+//       stack.push(currentToken);
+//     }
+//     if(currentToken.type == NUMBER) {
+//       posfixQueue.enqueue(currentToken);
 //     }
 //   }
-//
-//   return aux.pop().number;
+//   std::cout << "\nStack: " << stack.toString() << std::endl;
+//   while(!stack.isEmpty()){
+//     posfixQueue.enqueue(stack.pop());
+//   }
+//   while(!posfixQueue.isEmpty()) {
+//     infixQueue.enqueue(posfixQueue.dequeue());
+//   }
 // }
-
-static void eliminateGroupingSymbol(const char &c, Stack<char> &stack, Queue<Token> &queue){
-  Stack<char> aux;
-
-  while(!stack.isEmpty() && !isStartGroupingSymbol(stack.peek())){
-    aux.push(stack.pop());
-  }
-
-  if(!stack.isEmpty() && isStartGroupingSymbol(stack.peek())){
-    stack.pop();
-  }
-  while(!aux.isEmpty()){
-    Token t;
-    t.type = OPERATOR;
-    new (&t.str) String(String::to_string(stack.pop()));
-    queue.enqueue(t);
-  }
-}
-
-static Queue<Token> tokenize(const String& expression) {
-  Queue<Token> queue;
-  String token;
-  int i = 0;
-  while(i < expression.size()){
-    while(i < expression.size() && (isDigit(expression[i]) || expression[i] == '.')) {
-      token += expression[i++];
-    }
-    if(!token.empty()){
-      Token t;
-      t.type = NUMBER;
-      t.number = atof(token.c_str());
-      queue.enqueue(t);
-      token.clear();
-    } 
-    while(i < expression.size() && isOperator(expression[i])) { 
-      token += expression[i++];
-    }
-    if(!token.empty()){
-      Token t;
-      t.type = OPERATOR;
-      t.str = token;
-      queue.enqueue(t);
-      token.clear();
-    }
-    if(i < expression.size() && isStartGroupingSymbol(expression[i])){
-      Token t;
-      t.type = PARENTHESIS;
-      new (&t.str) String(String::to_string(expression[i]));
-      queue.enqueue(t);
-    }
-    if(i < expression.size() && isEndGroupingSymbol(expression[i])){
-      Token t;
-      t.type = PARENTHESIS;
-      new (&t.str) String(String::to_string(expression[i]));
-      queue.enqueue(t);
-    }
-    i++;
-  }
-  return queue;
-}
-
-static Queue<Token> infixToPosfix(Queue<Token>& infixQueue) {
-  Queue<Token> posfixQueue;
-  String token;
-  int i = 0;
-  while(infixQueue.size() > 0) {
-    Token currentToken = infixQueue.dequeue();
-  }
-  while(i < expression.size()){
-    while(i < expression.size() && (isDigit(expression[i]) || expression[i] == '.')) {
-      token += expression[i++];
-    }
-    if(!token.empty()){
-      Token t;
-      t.type = NUMBER;
-      t.number = atof(token.c_str());
-      queue.enqueue(t);
-      token.clear();
-    } 
-    while(i < expression.size() && isOperator(expression[i])) { 
-      token += expression[i++];
-    }
-    if(!token.empty()){
-      Token t;
-      t.type = OPERATOR;
-      t.str = token;
-      queue.enqueue(t);
-      token.clear();
-    }
-    if(i < expression.size() && isStartGroupingSymbol(expression[i])){
-      Token t;
-      t.type = PARENTHESIS;
-      new (&t.str) String(String::to_string(expression[i]));
-      queue.enqueue(t);
-    }
-    if(i < expression.size() && isEndGroupingSymbol(expression[i])){
-      Token t;
-      t.type = PARENTHESIS;
-      new (&t.str) String(String::to_string(expression[i]));
-      queue.enqueue(t);
-    }
-    i++;
-  }
-  return queue;
-}
-static bool isOperator(const char &ch) {
-  return ch == '+' || ch == '-' || ch == '*' || ch == '/' || ch == '^' || ch == '!' || ch == '=' || ch == '<' || ch == '>';
-}
-
-static bool isDigit(const char &ch) { return (ch >= '0' && ch <= '9'); }
-
-static bool isStartGroupingSymbol(const char &ch) {
-  return ch == '(' || ch == '[' || ch == '{';
-}
-
-static bool isEndGroupingSymbol(const char &ch) {
-   return ch == '}' || ch == ')' || ch == ']';
-}
-
-static bool isMatchGroupingSymbol(const char &c1, const char &c2){
-  return (c1 == '(' && c2 == ')') || (c1 == '{' && c2 == '}') || (c1 == '[' && c2 == ']');
-}
-
-static int precedence(const char &op) {
-  if(op == '>' || op == '<' || op == '=' || op == '!')
-    return 1;
-  if (op == '+' || op == '-')
-    return 2;
-  if (op == '*' || op == '/')
-    return 3;
-  if (op == '^')
-    return 4;
-  return 0; //NOTE: returns 0 if it is a logic operator! (|, &, n)
-}
-
-
-static bool isRelationalOperator(const char &c){
-  return c == '!' || c == '=' || c == '<' || c == '>' || c == '=' || c == '&' || c == '|' || c == '~';
-} 
+// static bool isOperator(const char &ch) {
+//   return ch == '+' || ch == '-' || ch == '*' || ch == '/' || ch == '^' || ch == '!' || ch == '=' || ch == '<' || ch == '>';
+// }
+//
+// static bool isDigit(const char &ch) { return (ch >= '0' && ch <= '9'); }
+//
+// static bool isStartGroupingSymbol(const char &ch) {
+//   return ch == '(' || ch == '[' || ch == '{';
+// }
+//
+// static bool isEndGroupingSymbol(const char &ch) {
+//    return ch == '}' || ch == ')' || ch == ']';
+// }
+//
+// static bool isMatchGroupingSymbol(const char &c1, const char &c2){
+//   return (c1 == '(' && c2 == ')') || (c1 == '{' && c2 == '}') || (c1 == '[' && c2 == ']');
+// }
+//
+// static int precedence(const String& s) {
+//   if (s == ">" || s == "<" | s == "<=" || s == ">=" || s == "==" || s == "!=")
+//     return 1;
+//   if (s == "+" || s == "-")
+//     return 2;
+//   if (s == "*" || s == "/")
+//     return 3;
+//   if (s == "^")
+//     return 4;
+//   return 0; // logical operators
+// }
+//
+//
+//
+// static bool isRelationalOperator(const char& c){
+//   return c == '!' || c == '=' || c == '<' || c == '>' || c == '~' || c == '&' || c == '|';
+// } 

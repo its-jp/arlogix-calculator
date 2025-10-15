@@ -1,6 +1,6 @@
 #include <catch2/catch_test_macros.hpp>
 #include "calculator/arlogix_calculator.hpp"
-#include "string.hpp"
+#include "string/string.hpp"
 TEST_CASE("CALCULATOR - Arithmetic Expressions (NO PARENTHESIS)", "[ar_express]"){
   ArlogixCalculator calc;
   String exp = "4 + 3 / 3";

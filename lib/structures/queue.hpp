@@ -1,6 +1,6 @@
 #pragma once
 #include "linked_list.hpp"
-#include "string.hpp"
+#include "string/string.hpp"
 template <typename T>
 class Queue : private LinkedList<T> {
   public:

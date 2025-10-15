@@ -2,7 +2,7 @@
 #include <stdio.h>
 #include "node.hpp"
 #include <iostream>
-#include "string.hpp"
+#include "string/string.hpp"
 template <typename T>
 class LinkedList {
   public:
