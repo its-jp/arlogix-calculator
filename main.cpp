@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 #include "lib/calculator/arlogix_calculator.hpp"
 #include "lib/structures/queue.hpp"
 #include "lib/structures/stack.hpp"
@@ -18,3 +19,15 @@ int main() {
 
   return 0;
 }
+=======
+#include <QApplication>
+
+#include "lib/ui/ui.hpp"
+
+int main(int argc, char* argv[]) {
+  QApplication app(argc, argv);
+  arlogix::UICalc window;
+  window.show();
+  return app.exec();
+}
+>>>>>>> origin/gui
