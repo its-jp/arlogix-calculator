@@ -1,8 +1,7 @@
 #pragma once
-
 #include <QMainWindow>
 
-#include "../string.hpp"
+#include "string/string.hpp"
 #include "ui_calc.h"
 
 namespace arlogix{

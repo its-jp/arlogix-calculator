@@ -1,0 +1,9 @@
+{
+	"InstallScripts" : 
+	[
+		"/Users/u23140/gh-projects/arlogix-calculator/build/cmake_install.cmake",
+		"/Users/u23140/gh-projects/arlogix-calculator/build/_deps/catch2-build/cmake_install.cmake",
+		"/Users/u23140/gh-projects/arlogix-calculator/build/_deps/catch2-build/src/cmake_install.cmake"
+	],
+	"Parallel" : false
+}

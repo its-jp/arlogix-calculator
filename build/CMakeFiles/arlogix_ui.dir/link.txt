@@ -1,0 +1,2 @@
+/usr/bin/ar qc libarlogix_ui.a CMakeFiles/arlogix_ui.dir/arlogix_ui_autogen/mocs_compilation.cpp.o CMakeFiles/arlogix_ui.dir/lib/ui/ui.cpp.o
+/usr/bin/ranlib libarlogix_ui.a
