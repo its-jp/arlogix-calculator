@@ -1,6 +1,7 @@
 #include "shunting_yard.hpp"
 
 #include <cmath>
+#include <stdexcept>
 static bool isOperator(const char &ch);
 static bool isStartGroupingSymbol(const char &ch);
 static bool isEndGroupingSymbol(const char &ch);
@@ -12,7 +13,6 @@ static bool isRelationalOperator(const char& c);
 static void eliminateGroupingSymbol(const char& c, Stack<Token>& stack, Queue<Token>& queue);
 static void infixToPosfix(Queue<Token>& infixQueue);
 static Queue<Token> tokenize(const String& expression);
-static double calculatePosfix(Queue<Token>& queue);
 
 Queue<Token> ShuntingYard::toPosfix(Queue<Token>& infixQueue) {
   Queue<Token> posfixQueue;
@@ -28,60 +28,34 @@ Queue<Token> ShuntingYard::toPosfix(Queue<Token>& infixQueue) {
       }
     }
     if(currentToken.type == OPERATOR) {
-      if(!stack.isEmpty() && precedence(stack.peek().str) >= precedence(currentToken.str)){
-        Token popped = stack.pop();
-        posfixQueue.enqueue(popped);
+      while(!stack.isEmpty() && stack.peek().type == OPERATOR){
+
+        int currentPrecedence = precedence(currentToken.str);
+        int stackPrecedence = precedence(stack.peek().str);
+        
+        bool isRightAssociative = currentToken.str == "^";
+        if((!isRightAssociative && stackPrecedence >= currentPrecedence) || (isRightAssociative && stackPrecedence > currentPrecedence)){
+          Token popped = stack.pop();
+          posfixQueue.enqueue(popped);
+        }
+        else{
+          break;
+        }
       }
       stack.push(currentToken);
     }
-    if(currentToken.type == NUMBER) {
+    if(currentToken.type == NUMBER || currentToken.type == BOOLEAN) {
       posfixQueue.enqueue(currentToken);
     }
   }
-  std::cout << "\nStack: " << stack.toString() << std::endl;
   while(!stack.isEmpty()){
-    posfixQueue.enqueue(stack.pop());
+    auto currentToken = stack.pop();
+    if(isStartGroupingSymbol(currentToken.str[0]) || isEndGroupingSymbol(currentToken.str[0]))
+      throw std::runtime_error("Error: Unbalanced Grouping Symbol");
+    posfixQueue.enqueue(currentToken);
   }
-  // while(!posfixQueue.isEmpty()) {
-  //   infixQueue.enqueue(posfixQueue.dequeue());
-  // }
   return posfixQueue;
 }
-
-static double calculatePosfix(Queue<Token>& queue){
-  Stack<Token> aux;
-  while(!queue.isEmpty()){
-    Token t = queue.dequeue();
-    if(t.type == NUMBER) {
-      aux.push(t);
-    }
-    else {
-      Token secOperandToken = aux.pop();
-      Token firstOperandToken = aux.pop();
-
-      Token newToken;
-      newToken.type = NUMBER;
-      if(t.str == "+") newToken.number = firstOperandToken.number + secOperandToken.number;
-      else if(t.str == "-") newToken.number = firstOperandToken.number - secOperandToken.number;
-      else if(t.str == "/") newToken.number = firstOperandToken.number / secOperandToken.number;
-      else if(t.str == "*") newToken.number = firstOperandToken.number * secOperandToken.number;
-      else if(t.str == "^") newToken.number = pow(firstOperandToken.number, secOperandToken.number);
-      else if(t.str == ">") newToken.number = firstOperandToken.number > secOperandToken.number;
-      else if(t.str == ">=") newToken.number = firstOperandToken.number >= secOperandToken.number;
-      else if(t.str == "<=") newToken.number = firstOperandToken.number <= secOperandToken.number;
-      else if(t.str == "<") newToken.number = firstOperandToken.number < secOperandToken.number;
-      else if(t.str == "&&") newToken.number = (firstOperandToken.number != 0) && (secOperandToken.number != 0);
-      else if(t.str == "||") newToken.number = (firstOperandToken.number != 0) || (secOperandToken.number != 0);
-      else if(t.str == "==") newToken.number = (firstOperandToken.number != 0) == (secOperandToken.number != 0);
-      else if(t.str == "!=") newToken.number = (firstOperandToken.number != 0) != (secOperandToken.number != 0);
-      else throw std::runtime_error("Error: Unknown Operator");
-      aux.push(newToken);
-    }
-  }
-
-  return aux.pop().number;
-}
-
 
 static void eliminateGroupingSymbol(const char &c, Stack<Token> &stack, Queue<Token> &queue){
   Stack<Token> aux;

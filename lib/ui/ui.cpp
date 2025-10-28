@@ -109,7 +109,7 @@ void UICalc::on_btnCalc_clicked() {
         qDebug() << "Calculating expression: " << this->currentExpression.c_str() << '\n';
         ArlogixCalculator calc;
         // arlogix::calculator::ArlogixCalculator calc;
-        double result = calc.evaluateArithmetic(this->currentExpression);
+        double result = calc.evaluate(this->currentExpression);
         this->currentExpression = String::to_string(result);
         updateDisplay();
     }

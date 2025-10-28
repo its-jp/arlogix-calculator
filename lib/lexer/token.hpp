@@ -1,6 +1,6 @@
 #pragma once
 #include "string/string.hpp"
-enum TokenType {NUMBER, OPERATOR, PARENTHESIS};
+enum TokenType {NUMBER, OPERATOR, PARENTHESIS, BOOLEAN};
 
 struct Token {
   TokenType type;
