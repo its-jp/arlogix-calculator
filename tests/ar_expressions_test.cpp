@@ -52,7 +52,7 @@ TEST_CASE("CALCULATOR - Arithmetic Expressions (NO PARENTHESIS)", "[ar_express]"
     exp = "3 + 2^3 * 2"; // 3 + 8*2 = 19
     REQUIRE(calc.evaluate(exp) == 19);
 
-    exp = "2^3^2"; // should be 2^(3^2) = 512 if right-associative
+    exp = "2^3^2"; // 2^(3^2) = 512 -> right association!
     REQUIRE(calc.evaluate(exp) == 512);
   }
 

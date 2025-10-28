@@ -85,7 +85,7 @@ TEST_CASE("CALCULATOR - Logical Expressions (Boolean Logic)", "[lo_express]") {
     exp = "4 == 4 || 2 > 10"; 
     REQUIRE(calc.evaluate(exp) == 1);
 
-    exp = "5 != 5 || 1"; // false || true = true
+    exp = "5 != 5 || true"; // false || true = true
     REQUIRE(calc.evaluate(exp) == 1);
 
     exp = "10 <= 5"; 

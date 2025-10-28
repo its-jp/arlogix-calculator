@@ -8,7 +8,6 @@
 #include <stdexcept>
 #include <stdlib.h>
 #include <cmath>
-#include <string>
 #include "shunting_yard/shunting_yard.hpp"
 static Token calculatePosfix(Queue<Token>& queue);
 

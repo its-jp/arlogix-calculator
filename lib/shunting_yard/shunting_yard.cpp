@@ -6,7 +6,6 @@ static bool isOperator(const char &ch);
 static bool isStartGroupingSymbol(const char &ch);
 static bool isEndGroupingSymbol(const char &ch);
 static bool isMatchGroupingSymbol(const char &c1, const char &c2);
-static bool isDigit(const char &ch);
 static int precedence(const String& s);
 static bool findOperator(const char &c);
 static bool isRelationalOperator(const char& c);
@@ -77,7 +76,6 @@ static bool isOperator(const char &ch) {
   return ch == '+' || ch == '-' || ch == '*' || ch == '/' || ch == '^' || ch == '!' || ch == '=' || ch == '<' || ch == '>';
 }
 
-static bool isDigit(const char &ch) { return (ch >= '0' && ch <= '9'); }
 
 static bool isStartGroupingSymbol(const char &ch) {
   return ch == '(' || ch == '[' || ch == '{';
@@ -92,15 +90,21 @@ static bool isMatchGroupingSymbol(const char &c1, const char &c2){
 }
 
 static int precedence(const String& s) {
-  if (s == ">" || s == "<" | s == "<=" || s == ">=" || s == "==" || s == "!=")
-    return 1;
-  if (s == "+" || s == "-")
-    return 2;
-  if (s == "*" || s == "/")
-    return 3;
+  if (s == "!" )
+    return 6;
   if (s == "^")
+    return 5;
+  if (s == "*" || s == "/")
     return 4;
-  return 0; // logical operators
+  if (s == "+" || s == "-")
+    return 3;
+  if (s == ">" || s == "<" || s == "<=" || s == ">=" || s == "==" || s == "!=")
+    return 2;
+  if (s == "&&")
+    return 1;
+  if (s == "||")
+    return 0;
+  return -1; // unknown or invalid
 }
 
 
