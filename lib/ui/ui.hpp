@@ -15,6 +15,8 @@ namespace arlogix{
 
   private:
     void updateDisplay();
+    void handleInput(char c);
+    bool clear;
 
   private slots:
     void on_btnSub_clicked();
