@@ -1,33 +1,28 @@
-// <<<<<<< HEAD
-// #include "lib/calculator/arlogix_calculator.hpp"
-// #include "lib/structures/queue.hpp"
-// #include "lib/structures/stack.hpp"
-// #include <iostream>
-// int main() {
-//   ArlogixCalculator calc;
-//   String expression = "(15 + 3) / 2";
-//
-//   std::cout << "Expression: " << expression << std::endl;
-//   double res = calc.evaluateArithmetic(expression);
-//   std::cout << "Result: " << res << std::endl;
-//
-//   expression = "(-1) > -3";
-//
-//   std::cout << "Expression: " << expression << std::endl;
-//   res = calc.evaluateLogic(expression);
-//   std::cout << "Result: " << res << std::endl;
-//
-//   return 0;
-// }
-// =======
-#include <QApplication>
+#include "calculator/arlogix_calculator.hpp"
+#include <iostream>
+#include <string/string.hpp>
 
-#include "lib/ui/ui.hpp"
-
+static bool isRelationalExpression(const String& exp);
 int main(int argc, char* argv[]) {
-  QApplication app(argc, argv);
-  arlogix::UICalc window;
-  window.show();
-  return app.exec();
+    if (argc < 2) {
+        std::cerr << "\nUse: " << argv[0] << " \"<expression>\"" << std::endl;
+        return 1;
+    }
+
+    // argv[1] contains the expression
+    String exp = argv[1];
+
+    std::cout << "\nReceived Expression: " << exp << std::endl;
+
+    ArlogixCalculator calc;
+    double res = calc.evaluate(exp);
+    std::cout << "\nResult: " << res << std::endl;
+
+    return 0;
 }
-// >>>>>>> origin/gui
+
+
+
+static bool isRelationalExpression(const String& exp){
+  
+}

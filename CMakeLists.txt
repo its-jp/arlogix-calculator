@@ -2,20 +2,11 @@ cmake_minimum_required(VERSION 3.16)
 project(
   arlogix-calculator
   VERSION 1.0
-  DESCRIPTION "A calculator application using Qt6"
+  DESCRIPTION "A calculator application in the terminal"
   LANGUAGES CXX)
 
 set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
-
-set(CMAKE_AUTOMOC ON)
-set(CMAKE_AUTORCC ON)
-set(CMAKE_AUTOUIC OFF)
-
-find_package(
-  Qt6
-  COMPONENTS Widgets
-  REQUIRED)
 
 file(GLOB_RECURSE INL_FILES "${CMAKE_SOURCE_DIR}/lib/structures/*.inl")
 if(INL_FILES)
@@ -46,12 +37,8 @@ add_library(arlogix_core lib/calculator/arlogix_calculator.cpp)
 target_include_directories(arlogix_core PUBLIC ${CMAKE_SOURCE_DIR}/lib)
 target_link_libraries(arlogix_core PUBLIC arlogix_string arlogix_sy arlogix_lexer arlogix_structures)
 
-add_library(arlogix_ui lib/ui/ui.cpp lib/ui)
-target_include_directories(arlogix_ui PUBLIC ${CMAKE_SOURCE_DIR}/lib)
-target_link_libraries(arlogix_ui PUBLIC Qt6::Widgets arlogix_core)
-
 add_executable(arlogix_calculator ${CMAKE_SOURCE_DIR}/main.cpp)
-target_link_libraries(arlogix_calculator PRIVATE arlogix_ui)
+target_link_libraries(arlogix_calculator PRIVATE arlogix_core)
 
 
 include(FetchContent)
