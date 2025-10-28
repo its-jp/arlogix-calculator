@@ -1,4 +1,4 @@
-#include "lexer.hpp"
+#include <lexer/lexer.hpp>
 
 static bool isOperator(const char &ch);
 static bool isStartGroupingSymbol(const char &ch);

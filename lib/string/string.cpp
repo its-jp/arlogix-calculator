@@ -38,7 +38,7 @@ String& String::operator+(const String& outra){
     return *this;
 }
 
-String& String::operator=(String& outro) { 
+String& String::operator=(const String& outro) { 
     if (this != &outro) {
         delete[] data; 
         _size = outro._size;

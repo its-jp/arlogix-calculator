@@ -1,5 +1,5 @@
-#include "ui.hpp"
-#include "calculator/arlogix_calculator.hpp"
+#include <ui/ui.hpp>
+#include <calculator/arlogix_calculator.hpp>
 
 #include <QDebug>
 
@@ -110,7 +110,7 @@ void UICalc::on_btnCalc_clicked() {
         ArlogixCalculator calc;
         // arlogix::calculator::ArlogixCalculator calc;
         double result = calc.evaluateArithmetic(this->currentExpression);
-        this->currentExpression = std::to_string(result);
+        this->currentExpression = String::to_string(result);
         updateDisplay();
     }
 }

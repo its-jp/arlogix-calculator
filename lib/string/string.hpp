@@ -13,7 +13,7 @@ class String {
         String(const char* str);
         String(const String&);
         ~String();
-        String& operator=(String&);
+        String& operator=(const String&);
         String& operator=(const char*);
         String& operator+=(const String&);
         String& operator+=(const char& outra);
