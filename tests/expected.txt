@@ -1,0 +1,10 @@
+13
+erro
+21
+8.944
+true
+erro
+true
+false
+erro
+true
