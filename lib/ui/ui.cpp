@@ -1,14 +1,16 @@
-#include <ui/ui.hpp>
-#include <calculator/arlogix_calculator.hpp>
-
 #include <QDebug>
 #include <QRegularExpressionValidator>
+#include <stdexcept>
+
+#include <calculator/arlogix_calculator.hpp>
+#include <ui/ui.hpp>
+
 
 namespace arlogix {
 
 UICalc::UICalc(QWidget* parent) : QMainWindow(parent) { 
     setupUi(this); 
-    this->clear = false;
+    this->shouldClear = false;
     QRegularExpression rx("[0-9()+*/.!=>&|-]*");
     QValidator* validator = new QRegularExpressionValidator(rx, this);
     this->txtVisor->setValidator(validator);
@@ -20,9 +22,9 @@ void UICalc::updateDisplay() {
 }
 
 void UICalc::handleInput(char c) {
-    if (this->clear) {
+    if (this->shouldClear) {
         this->currentExpression.clear();
-        this->clear = false;
+        this->shouldClear = false;
     }
     this->currentExpression += c;
     updateDisplay();
@@ -91,23 +93,37 @@ void UICalc::on_btnQuatro_clicked() {
 void UICalc::on_btnCorrigir_clicked() {
     if(!this->currentExpression.empty())
         this->currentExpression.pop_back();
+    if(this->hasError){
+        this->on_btnClear_clicked();
+        this->hasError = false;
+    }
     updateDisplay();
 }
 void UICalc::on_btnClear_clicked() {
     if(!this->currentExpression.empty())
         this->currentExpression.clear();
-    this->clear = false;
+    this->shouldClear = false;
     updateDisplay();
 }
 void UICalc::on_btnCalc_clicked() {
     if(!this->currentExpression.empty()){
         qDebug() << "Calculating expression: " << this->currentExpression.c_str() << '\n';
         ArlogixCalculator calc;
-        // arlogix::calculator::ArlogixCalculator calc;
-        double result = calc.evaluate(this->currentExpression);
-        this->currentExpression = String::to_string(result);
-        updateDisplay();
-        this->clear = true;
+        double result;
+        try{
+            result = calc.evaluate(this->currentExpression);
+            this->currentExpression = String::to_string(result);
+            updateDisplay();
+            this->shouldClear = true;
+        }
+        catch(const std::runtime_error& e){
+            // Mostra o erro no visor
+            qDebug() << e.what();
+            this->currentExpression = String(e.what());
+            updateDisplay();
+            this->hasError = true;
+            this->shouldClear = true;
+        }
     }
 }
 
