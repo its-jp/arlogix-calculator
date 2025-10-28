@@ -11,7 +11,7 @@
 #include "shunting_yard/shunting_yard.hpp"
 static Token calculatePosfix(Queue<Token>& queue);
 
-double ArlogixCalculator::evaluate(const String &expression) {
+Token ArlogixCalculator::evaluate(const String &expression) {
 
   Stack<char> stack;
   Queue<Token> tokenizedQueue;
@@ -24,18 +24,10 @@ double ArlogixCalculator::evaluate(const String &expression) {
     else return tokenizedQueue.at(0).str == "true" ? 1 : 0;
   }
 
-
-  std::cout << "====TOKENIZED: " << tokenizedQueue.toString() << '\n';
   Queue<Token> posfixQueue = ShuntingYard::toPosfix(tokenizedQueue);
-  std::cout << "\n====POSFIX: " << posfixQueue.toString() << '\n';
 
 
-  auto t = calculatePosfix(posfixQueue);
-  if(t.type == NUMBER) return t.number;
-  else{
-    if(t.str == "true") return 1;
-    return 0;
-  }
+  return calculatePosfix(posfixQueue);
 }
 
 static Token calculatePosfix(Queue<Token>& queue){

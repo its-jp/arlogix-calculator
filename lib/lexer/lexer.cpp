@@ -72,6 +72,7 @@ Queue<Token> Lexer::tokenize(const String& expression) {
       queue.enqueue(t);
       lastRealCharIndex = i;  //lastRealCharIndex is setted to i (and not i - 1) because the i++ is at the end of the loop!
     }
+    i++;
   }
   return queue;
 }
