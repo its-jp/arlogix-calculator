@@ -109,10 +109,15 @@ void UICalc::on_btnCalc_clicked() {
     if(!this->currentExpression.empty()){
         qDebug() << "Calculating expression: " << this->currentExpression.c_str() << '\n';
         ArlogixCalculator calc;
-        double result;
+        Token result;
         try{
             result = calc.evaluate(this->currentExpression);
-            this->currentExpression = String::to_string(result);
+            if(result.type == NUMBER){
+                this->currentExpression = String::to_string(result.number);
+            } else {
+                this->currentExpression = result.str;
+            }
+            
             updateDisplay();
             this->shouldClear = true;
         }

@@ -2,6 +2,7 @@
 #include <QMainWindow>
 
 #include <string/string.hpp>
+#include <lexer/token.hpp>
 #include <ui/ui_calc.h>
 
 namespace arlogix{
