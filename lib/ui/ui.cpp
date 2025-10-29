@@ -90,6 +90,19 @@ void UICalc::on_btnAdic_clicked() {
 void UICalc::on_btnQuatro_clicked() {
     handleInput('4');
 }
+void UICalc::on_btnExp_clicked() {
+    handleInput('^');
+}
+void UICalc::on_btnDecimal_clicked() {
+    handleInput('.');
+}
+void UICalc::on_btnSL_clicked() {
+    handleInput('[');
+}
+void UICalc::on_btnSR_clicked() {
+    handleInput(']');
+}
+
 void UICalc::on_btnCorrigir_clicked() {
     if(!this->currentExpression.empty())
         this->currentExpression.pop_back();

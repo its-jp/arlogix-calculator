@@ -56,6 +56,10 @@ public:
     QPushButton *btnCorrigir;
     QPushButton *btnClear;
     QPushButton *btnCalc;
+    QPushButton *btnDecimal;
+    QPushButton *btnExp;
+    QPushButton *btnSL;
+    QPushButton *btnSR;
     QStatusBar *statusbar;
 
     void setupUi(QMainWindow *MainWindow)
@@ -104,6 +108,30 @@ public:
         btnParDir->setFont(font);
 
         gridNumOp->addWidget(btnParDir, 4, 2, 1, 1);
+
+        btnExp = new QPushButton(widget);
+        btnExp->setObjectName(QString::fromUtf8("btnExp"));
+        btnExp->setFont(font);
+
+        gridNumOp->addWidget(btnExp, 0, 4, 1, 1);
+
+        btnDecimal = new QPushButton(widget);
+        btnDecimal->setObjectName(QString::fromUtf8("btnDecimal"));
+        btnDecimal->setFont(font);
+
+        gridNumOp->addWidget(btnDecimal, 1, 4, 1, 1);
+
+        btnSL = new QPushButton(widget);
+        btnSL->setObjectName(QString::fromUtf8("btnSL"));
+        btnSL->setFont(font);
+
+        gridNumOp->addWidget(btnSL, 2, 4, 1, 1);
+
+        btnSR = new QPushButton(widget);
+        btnSR->setObjectName(QString::fromUtf8("btnSR"));
+        btnSR->setFont(font);
+
+        gridNumOp->addWidget(btnSR, 3, 4, 1, 1);
 
         btnNot = new QPushButton(widget);
         btnNot->setObjectName(QString::fromUtf8("btnNot"));
@@ -266,6 +294,22 @@ public:
         btnParDir->setText(QCoreApplication::translate("MainWindow", ")", nullptr));
 #if QT_CONFIG(shortcut)
         btnParDir->setShortcut(QCoreApplication::translate("MainWindow", ")", nullptr));
+#endif // QT_CONFIG(shortcut)
+        btnExp->setText(QCoreApplication::translate("MainWindow", "^", nullptr));
+#if QT_CONFIG(shortcut)
+        btnExp->setShortcut(QCoreApplication::translate("MainWindow", "^", nullptr));
+#endif // QT_CONFIG(shortcut)
+        btnDecimal->setText(QCoreApplication::translate("MainWindow", ".", nullptr));
+#if QT_CONFIG(shortcut)
+        btnDecimal->setShortcut(QCoreApplication::translate("MainWindow", ".", nullptr));
+#endif // QT_CONFIG(shortcut)
+        btnSL->setText(QCoreApplication::translate("MainWindow", "[", nullptr));
+#if QT_CONFIG(shortcut)
+        btnSL->setShortcut(QCoreApplication::translate("MainWindow", "[", nullptr));
+#endif // QT_CONFIG(shortcut)
+        btnSR->setText(QCoreApplication::translate("MainWindow", "]", nullptr));
+#if QT_CONFIG(shortcut)
+        btnSR->setShortcut(QCoreApplication::translate("MainWindow", "]", nullptr));
 #endif // QT_CONFIG(shortcut)
         btnNot->setText(QCoreApplication::translate("MainWindow", "!", nullptr));
 #if QT_CONFIG(shortcut)

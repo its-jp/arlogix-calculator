@@ -25,6 +25,10 @@ namespace arlogix{
     void on_btnUm_clicked();
     void on_btnNove_clicked();
     void on_btnParDir_clicked();
+    void on_btnExp_clicked();
+    void on_btnDecimal_clicked();
+    void on_btnSL_clicked();
+    void on_btnSR_clicked();
     void on_btnNot_clicked();
     void on_btnDois_clicked();
     void on_btnDiv_clicked();
