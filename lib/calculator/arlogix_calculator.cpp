@@ -1,6 +1,7 @@
-#include "arlogix_calculator.hpp"
-#include "lexer/token.hpp"
-#include "lexer/lexer.hpp"
+#include <calculator/arlogix_calculator.hpp>
+#include <lexer/token.hpp>
+#include <lexer/lexer.hpp>
+#include <string/string.hpp>
 #include "structures/stack.hpp"
 #include "structures/queue.hpp"
 #include <cstring>
@@ -11,7 +12,7 @@
 #include "shunting_yard/shunting_yard.hpp"
 static Token calculatePosfix(Queue<Token>& queue);
 
-double ArlogixCalculator::evaluate(const String &expression) {
+Token ArlogixCalculator::evaluate(const String &expression) {
 
   Stack<char> stack;
   Queue<Token> tokenizedQueue;
@@ -19,23 +20,15 @@ double ArlogixCalculator::evaluate(const String &expression) {
   //tokenizing the expression
   tokenizedQueue = Lexer::tokenize(expression); 
 
-  if(tokenizedQueue.size() < 2){
-    if(tokenizedQueue.at(0).type == NUMBER) return tokenizedQueue.at(0).number;
-    else return tokenizedQueue.at(0).str == "true" ? 1 : 0;
-  }
+  if(tokenizedQueue.size() < 2) return tokenizedQueue.dequeue();
 
 
   std::cout << "====TOKENIZED: " << tokenizedQueue.toString() << '\n';
   Queue<Token> posfixQueue = ShuntingYard::toPosfix(tokenizedQueue);
   std::cout << "\n====POSFIX: " << posfixQueue.toString() << '\n';
 
-
-  auto t = calculatePosfix(posfixQueue);
-  if(t.type == NUMBER) return t.number;
-  else{
-    if(t.str == "true") return 1;
-    return 0;
-  }
+ auto t = calculatePosfix(posfixQueue);
+  return Token(t.str, t.number, t.type);
 }
 
 static Token calculatePosfix(Queue<Token>& queue){

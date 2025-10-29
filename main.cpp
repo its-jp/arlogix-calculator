@@ -1,4 +1,5 @@
-#include "calculator/arlogix_calculator.hpp"
+#include <calculator/arlogix_calculator.hpp>
+#include <lexer/token.hpp>
 #include <iostream>
 #include <string/string.hpp>
 
@@ -15,9 +16,14 @@ int main(int argc, char* argv[]) {
     std::cout << "\nReceived Expression: " << exp << std::endl;
 
     ArlogixCalculator calc;
-    double res = calc.evaluate(exp);
-    std::cout << "\nResult: " << res << std::endl;
-
+    auto t = calc.evaluate(exp);
+    if(t.type == BOOLEAN) {
+        std::cout << "\nResult: " << t.str << std::endl;
+        return 0;
+    }
+    else{
+        std::cout << "\nResult: " << t.number << std::endl;
+    }
     return 0;
 }
 

@@ -3,5 +3,5 @@
 class ArlogixCalculator {
   public:
     ArlogixCalculator() = default;
-    double evaluate(const String& expression);
+    Token evaluate(const String& expression);
 };
